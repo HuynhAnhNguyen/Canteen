@@ -32,15 +32,26 @@ import { environment } from 'src/environments/environment';
   ],
 })
 export class ActiveAccountComponent implements OnInit {
-  code: string = '';
+  otpCode: string = '';
   loading: boolean = false;
+  isSubmitted: boolean = false;
 
-  constructor(private httpClient: HttpClient,private router: Router,private messageService: MessageService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private messageService: MessageService) { }
   ngOnInit(){
   }
   async activeAccount () {
+    this.isSubmitted = true;
+    if (!this.otpCode) {
+      this.messageService.add({ severity: 'error', summary: 'Vui lòng nhập mã OTP!' });
+      return;
+    }
+
     this.loading = true;
-    await this.httpClient.post<any>(environment.backendApiUrl+"/api/v1/project/auth/active?code="+this.code,null).toPromise().then(
+    
+    await this.httpClient.post<any>(environment.backendApiUrl+"/api/v1/project/auth/active?code="+this.otpCode,null).toPromise().then(
       data => {
         if(data.resultCode == "0") {
           this.messageService.add({severity:"success", summary:data.message});
@@ -61,4 +72,22 @@ export class ActiveAccountComponent implements OnInit {
     
   }
 
+  async sendOTP() {
+    this.loading = true;
+  
+    await this.httpClient.post<any>(environment.backendApiUrl + "/api/v1/project/auth/send-otp", null)
+      .toPromise()
+      .then(data => {
+        if (data.resultCode == "0") {
+          this.messageService.add({ severity: "success", summary: "Mã OTP đã được gửi, vui lòng kiểm tra email/SMS." });
+        } else {
+          this.messageService.add({ severity: "error", summary: data.message });
+        }
+      })
+      .catch(error => {
+        this.messageService.add({ severity: "error", summary: "Đã xảy ra lỗi khi gửi OTP." });
+      });
+  
+    this.loading = false;
+  }
 }

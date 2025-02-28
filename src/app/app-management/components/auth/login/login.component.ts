@@ -50,24 +50,33 @@ export class LoginComponent {
                     if (data.resultCode == '0') {
                         this.authService.setToken(data.data.token);
                         this.authService.setUsername(data.data.username);
+                        this.authService.setRole(data.data.role); // Lưu role vào storage
+                        this.messageService.add({ severity: "success", summary: "Đăng nhập thành công" });
+                        
+                        // Điều hướng dựa trên role
+                        this.router.navigate([this.authService.getRedirectUrl()]);
+
                         // console.log(this.authService.getUsername())
-                        this.authService.setRole(data.data.role);
+                        // this.authService.setRole(data.data.role);
                         console.log(this.authService.getRedirectUrl())
                         this.router.navigate([
                             this.authService.getRedirectUrl(),
                         ]);
+                        // console.log("Username sau khi đăng nhập:", this.authService.getUsername());
+                        // alert(`Đăng nhập thành công`);
+
                        
                     } else
                         this.messageService.add({
                             severity: 'error',
-                            summary: data.message,
+                            summary: "Tài khoản không tồn tại ",
                         });
                         // console.log(data)
                 },
                 (error) => {
                     this.messageService.add({
                         severity: 'error',
-                        summary: 'Username or password incorrect',
+                        summary: 'Tên đăng nhập hoặc mật khẩu không đúng',
                     });
                     console.log(error)
                 }

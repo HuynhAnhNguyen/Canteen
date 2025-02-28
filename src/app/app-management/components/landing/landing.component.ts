@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { FoodService } from 'src/app/services/food.service';
+import { AuthService } from 'src/app/app-management/service/auth.service';
 
 @Component({
     selector: 'app-landing',
@@ -64,29 +65,54 @@ import { FoodService } from 'src/app/services/food.service';
 // }
 
 export class LandingComponent implements OnInit {
+    isLoggedIn: boolean = false;
+    username: string = '';
     foods: any[] = []; // Danh sách món ăn
   
     constructor(
       private foodService: FoodService, 
       public layoutService: LayoutService, 
-      public router: Router
+      public router: Router,
+      private authService: AuthService
     ) {}
   
     ngOnInit() {
       this.loadFoods();
+      this.checkLoginStatus();
     }
   
+    checkLoginStatus() {
+      this.isLoggedIn = this.authService.isAuthenticated();
+      if (this.isLoggedIn) {
+        this.username = this.authService.getUsername();
+        // console.log("Username khi vào Landing Page:", this.username);
+      }
+    }
+
+    logout() {
+      this.authService.logout();
+      this.isLoggedIn = false;
+      this.username = '';
+    }
+
     loadFoods() {
       this.foodService.getAllFoods().subscribe(
         (data) => {
           this.foods = data.data; // Lưu dữ liệu API vào biến
-          console.log('Danh sách món ăn:', this.foods);
+          // console.log('Danh sách món ăn:', this.foods);
         },
         (error) => {
           console.error('Lỗi khi lấy API', error);
         }
       );
     }
+
+    // ✅ Thêm sản phẩm vào giỏ hàng
+  addToCart(food: any) {
+    console.log('Sản phẩm đã thêm vào giỏ hàng:', food);
+    
+    alert(`Đã thêm vào giỏ hàng thành công.\n\nTên món ăn: ${food.name}\nGiá: ${food.price.toLocaleString()} VND`);
+  }
   
     // ✅ Tạo hàm để điều hướng trang
     navigateToLanding() {

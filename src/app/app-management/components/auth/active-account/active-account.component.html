@@ -8,9 +8,8 @@
         <div class="col-12 xl:col-6" style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
             <div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
                 <div class="text-center mb-5">
-                    <img src="assets/layout/images/images.png" alt="Image" height="50" class="mb-3">
-                    <div class="text-900 text-3xl font-medium mb-3">Welcome to Travel!</div>
-                    <span class="text-600 font-medium">Active your account</span>
+                    <img src="assets/layout/images/logo.svg" alt="Image" height="50" class="mb-3">
+                    <div class="text-900 text-3xl font-medium mb-3">Nhập mã xác nhận của bạn</div>
                 </div>
                 <!-- <div>
                     <a href="http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:4200/#/auth/login">Login with Google</a>
@@ -22,12 +21,18 @@
                
 
                 <div class="w-full md:w-10 mx-auto">
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Code</label>
-                    <input id="email1" type="text" placeholder="Mã code kích hoạt tài khoản" [(ngModel)] ="code" pInputText class="w-full mb-3" style="padding:1rem;">
-                    <small class="ng-dirty ng-invalid" style="color: red;" *ngIf="!code">Code is required</small>
-                    <button pButton pRipple label="Kích hoạt tài khoản" (click)="activeAccount()" class="w-full p-3 mt-5 text-xl"></button>
-                    <!-- <input  type="text" placeholder="Token" (change)="signInWithGoogle()" [(ngModel)] ="access_token" pInputText class="w-full mb-3" style="padding:1rem;"> -->
+                    <!-- Input nhập OTP -->
+                    <label for="otpCode" class="block text-900 text-xl font-medium mb-2">Nhập mã OTP</label>
+                    <input id="otpCode" type="text" placeholder="Nhập mã OTP" [(ngModel)]="otpCode" pInputText class="w-full mb-3" style="padding:1rem;">
+                    <small style="color: red;" *ngIf="!otpCode && isSubmitted">Mã OTP là bắt buộc</small>
+                
+                    <!-- Nút gửi OTP -->
+                    <button pButton pRipple label="Gửi lại mã OTP" (click)="sendOTP()" class="w-full p-3 mt-3 text-xl bg-blue-500 text-white"></button>
+                
+                    <!-- Nút kích hoạt tài khoản -->
+                    <button pButton pRipple label="Kích hoạt tài khoản" (click)="activeAccount()" class="w-full p-3 mt-5 text-xl bg-green-500 text-white"></button>
                 </div>
+                
                 
             </div>
         </div>

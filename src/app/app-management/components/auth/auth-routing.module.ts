@@ -4,6 +4,7 @@ import { ActiveAccountComponent } from './active-account/active-account.componen
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
     imports: [RouterModule.forChild([
@@ -13,7 +14,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
         { path: 'forgot-password', component:ForgotPasswordComponent},
         { path: 'reset-password',  component: ResetPasswordComponent},
         { path: 'signup', component: SignUpComponent},
-        { path: 'active', component: ActiveAccountComponent}
+        { path: 'active', component: ActiveAccountComponent},
+        { path: 'cart', component: CartComponent},
     ])],
     exports: [RouterModule]
 })

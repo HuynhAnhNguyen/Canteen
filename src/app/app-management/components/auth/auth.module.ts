@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
 import { PagesModule } from '../pages/pages.module';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
     imports: [
@@ -23,13 +24,15 @@ import { PagesModule } from '../pages/pages.module';
         FormsModule,
         PasswordModule,
         ToastModule,
-        PagesModule
+        PagesModule,
+        
     ],
     declarations: [
         ForgotPasswordComponent,
         ResetPasswordComponent,
         SignUpComponent,
-        ActiveAccountComponent
+        ActiveAccountComponent,
+        CartComponent
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA

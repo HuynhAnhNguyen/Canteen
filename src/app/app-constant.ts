@@ -14,7 +14,8 @@ export const storageKey: any = {
     LANGUAGES: 'languages',
     AUTHORIZATION: 'Authorization',
     USER_INFO: 'userInfo',
-    REFERER: 'redirect'
+    REFERER: 'redirect',
+    USER_NAME: 'username'
 };
 export const name: any = {
     App: 'APPLICATION',
