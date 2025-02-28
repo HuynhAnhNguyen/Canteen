@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="surface-0 flex justify-content-center">
     <div id="home" class="landing-wrapper overflow-hidden">
         <div
@@ -15,14 +16,24 @@
                 <ul
                     class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row cursor-pointer">
                     <li>
-                        <a (click)="router.navigate(['/pages/landing'], {fragment: 'home'})" pRipple
+                        <a routerLink="/" pRipple
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Trang chủ</span>
                         </a>
                     </li>
                     <li>
-                        <a routerLink="/auth/cart" fragment="features" pRipple
+                        <!-- <a routerLink="/auth/cart" fragment="features" pRipple
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                            <span>Giỏ hàng</span>
+                        </a> -->
+                        <a *ngIf="isLoggedIn" [routerLink]="['/auth/cart']" fragment="features"
+                            pRipple class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                            <span>Giỏ hàng</span>
+                        </a>
+
+                        <!-- Nếu chưa đăng nhập -->
+                        <a *ngIf="!isLoggedIn" fragment="features"
+                        pRipple class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Giỏ hàng</span>
                         </a>
 
@@ -51,7 +62,10 @@
 
                     <!-- Nếu đã đăng nhập -->
                     <div *ngIf="isLoggedIn">
-                        <span class="font-bold text-blue-500">Xin chào, {{ username }}</span>
+                        <button pButton pRipple label="Xin chào {{ fullname }}"
+                            class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500">
+                        </button>
+                        <!-- <span class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500">Xin chào, {{ username }}</span> -->
                         <button pButton pRipple label="Đăng xuất"
                             class="p-button-text p-button-rounded border-none font-light line-height-2 text-red-500 ml-3"
                             (click)="logout()">
@@ -80,6 +94,7 @@
                                 <button class="btn btn-primary" (click)="addToCart(food)">
                                     Thêm vào giỏ hàng
                                 </button>
+                                
                             </div>
                         </div>
                     </div>

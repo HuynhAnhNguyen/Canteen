@@ -5,7 +5,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { HttpClient } from '@angular/common/http';
 import { SecureStorageService } from 'src/app/app-management/storage/secure-storage.service';
 import { Router } from '@angular/router';
-import {MessageService} from 'primeng/api';
+import { MessageService} from 'primeng/api';
 import { environment } from 'src/environments/environment';
 @Component({
     selector: 'app-login',
@@ -50,9 +50,16 @@ export class LoginComponent {
                     if (data.resultCode == '0') {
                         this.authService.setToken(data.data.token);
                         this.authService.setUsername(data.data.username);
+                        this.authService.setFullname(data.data.fullname);
+                        this.authService.setAccountid(data.data.account_id);
+                        this.authService.setCartid(data.data.cart_id);
+
+                        // console.log(data.data.cart_id);
+
                         this.authService.setRole(data.data.role); // Lưu role vào storage
                         this.messageService.add({ severity: "success", summary: "Đăng nhập thành công" });
                         
+                        console.log(data.data);
                         // Điều hướng dựa trên role
                         this.router.navigate([this.authService.getRedirectUrl()]);
 

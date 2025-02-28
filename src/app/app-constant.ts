@@ -15,7 +15,10 @@ export const storageKey: any = {
     AUTHORIZATION: 'Authorization',
     USER_INFO: 'userInfo',
     REFERER: 'redirect',
-    USER_NAME: 'username'
+    USER_NAME: 'username',
+    FULL_NAME: 'fullname',
+    ACCOUNT_ID: 'accountid',
+    CART_ID: 'cartid',
 };
 export const name: any = {
     App: 'APPLICATION',

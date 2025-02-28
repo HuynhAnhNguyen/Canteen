@@ -86,6 +86,39 @@ export class AuthService {
         return this.secureStorageService.getItem(storageKey.USER_NAME)
     }
 
+    setFullname(fullname: string) {
+        // console.log("SET USERNAME TRONG AUTH.SERVICE.TS "+fullname); 
+        this.secureStorageService.setItem(storageKey.FULL_NAME, fullname)
+        // console.log("SET USERNAME TRONG AUTH.SERVICE.TS 2 "+ storageKey.FULL_NAME); 
+
+    }
+    getFullname(): string {
+        // console.log("Trong getUsername "+this.secureStorageService.getItem(storageKey.FULL_NAME)); 
+        return this.secureStorageService.getItem(storageKey.FULL_NAME)
+    }
+
+    setAccountid(accountid: string) {
+        // console.log("ACCOUNT_ID "+ accountid); 
+        this.secureStorageService.setItem(storageKey.ACCOUNT_ID, accountid)
+        // console.log("ACCOUNT_ID "+ storageKey.accountid); 
+
+    }
+    getAccountid(): string {
+        console.log("ACCOUNT_ID "+this.secureStorageService.getItem(storageKey.accountid)); 
+        return this.secureStorageService.getItem(storageKey.ACCOUNT_ID)
+    }
+
+    setCartid(cartid: string) {
+        // console.log("ACCOUNT_ID "+ accountid); 
+        this.secureStorageService.setItem(storageKey.CART_ID, cartid)
+        // console.log("ACCOUNT_ID "+ storageKey.accountid); 
+
+    }
+    getCartid(): string {
+        // console.log("CART_ID "+this.secureStorageService.getItem(storageKey.CART_ID)); 
+        return this.secureStorageService.getItem(storageKey.CART_ID)
+    }
+
     setRole(role: string) {
         this.secureStorageService.setItem(storageKey.ROLE, role)
     }
