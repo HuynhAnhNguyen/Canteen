@@ -1,7 +1,12 @@
 export interface Account {
-    userName?: string;
-    passWord?:string;
+    id?:number;
+    username?: string;
     email?:string;
-    role?:string[];
+    role?:string;
     status?:number;
+    note?:string;
+    code?:string;
+    fullname?:string;
+    phoneNumber?:string;
+    password?:string;
 }

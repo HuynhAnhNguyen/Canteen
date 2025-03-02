@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class WebSocketService {
 
   constructor(private authService:AuthService) {
     this.stompClient = new Client({
-      brokerURL: `http://localhost:8080/ws?token=${this.authService.getToken()}`, 
+      brokerURL:environment.backendApiUrl+ '/ws?token='+this.authService.getToken(), 
     //   connectHeaders: {
     //     Authorization: `${this.authService.getToken()}` // Gửi JWT trong header (dự phòng)
     // },

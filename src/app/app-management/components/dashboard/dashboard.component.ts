@@ -10,113 +10,300 @@ import { WebSocketService } from '../../service/websocketService';
 import { AuthService } from '../../service/auth.service';
 import * as SockJS from 'sockjs-client';
 import { environment } from 'src/environments/environment';
+import { ResponseMessage } from '../../Model/ResponsMessage';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { storageKey } from 'src/app/app-constant';
 @Component({
     templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-    private stompClient!: Client;
-    private notificationSubject = new BehaviorSubject<string | null>(null);
-    public notifications$ = this.notificationSubject.asObservable();
-
-    items!: MenuItem[];
-
-    products!: Product[];
+export class DashboardComponent implements OnInit {
+   
 
     chartData: any;
 
     chartOptions: any;
+    loading: boolean = false;
+    header: any;
+    totalRevenueToday: number = 0;
+    totalOrderDoneToday: number = 0;
+    totalOrderUnconfirmToday: number = 0;
+    totalOrderPreparingToday: number = 0;
+    dataChartByDay: any[] = [];
+    dataChartByMonth: any[] = [];
+    chartLabelDay: any[] = [];
+    chartLabelMonth: any[] = [];
+    chartDataDay: any[] = [];
+    chartDataMonth: any[] = [];
 
-    subscription!: Subscription;
-
-    webSocketEndPoint: string = environment.backendApiUrl+'/ws';
+    chartDay: any;
+    chartMonth: any;
 
     constructor( public layoutService: LayoutService,private messageService: MessageService,
-        private websocketService: WebSocketService,private authService:AuthService) {
-        this.subscription = this.layoutService.configUpdate$.subscribe(() => {
-            this.initChart();
-        });
-        this.websocketService.connect();
+        private websocketService: WebSocketService,private authService:AuthService,private http: HttpClient) {
+        
+        // this.websocketService.connect();
     }
 
     ngOnInit() {
-        this.initChart();
-        // this.productService.getProductsSmall().then(data => this.products = data);
-
-        this.items = [
-            { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-            { label: 'Remove', icon: 'pi pi-fw pi-minus' }
-        ];
-        
-    
+         this.header = new HttpHeaders().set(
+                    storageKey.AUTHORIZATION,
+                    this.authService.getToken()
+                );
+        this.loadData();
+       
     }
 
+    async loadData() {
+        this.loading = true;
+        await this.http
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalRevenueToday', {
+                headers: this.header,
+            }).toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.totalRevenueToday = data.data;
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data)
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
 
-    initChart() {
+
+            await this.http
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalDoneOrdersToday', {
+                headers: this.header,
+            }).toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.totalOrderDoneToday = data.data;
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data)
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+
+            await this.http
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalPreparingOrdersToday', {
+                headers: this.header,
+            }).toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.totalOrderPreparingToday = data.data;
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data)
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+
+            await this.http
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalUnConfirmOrdersToday', {
+                headers: this.header,
+            }).toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.totalOrderUnconfirmToday = data.data;
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data)
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+
+
+            await this.http
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalRevenueLastDays?day=7', {
+                headers: this.header,
+            }).toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.dataChartByDay = data.data;
+                        this.initChartByDay();
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data)
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+
+            await this.http
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalRevenueLastMonths?month=12', {
+                headers: this.header,
+            }).toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.dataChartByMonth = data.data;
+                        this.initChartByMonth();
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data)
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+
+            this.loading = false;
+    }
+
+    initChartByDay() {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const textColorSecondary = documentStyle.getPropertyValue(
+            '--text-color-secondary'
+        );
+        const surfaceBorder =
+            documentStyle.getPropertyValue('--surface-border');
+        this.chartDataDay =[];
+        this.chartLabelDay = [];
+        for(let i = 0; i<this.dataChartByDay.length; i++) {
+            this.chartLabelDay.push(this.dataChartByDay[i].orderDate);
+            this.chartDataDay.push(this.dataChartByDay[i].totalRevenue)
+        }
 
-        this.chartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        this.chartDay = {
+            labels: this.chartLabelDay,
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    label: 'Doanh số',
+                    data: this.chartDataDay,
                     fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    borderColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    tension: .4
-                },
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--green-600'),
-                    borderColor: documentStyle.getPropertyValue('--green-600'),
-                    tension: .4
+                    backgroundColor:
+                        documentStyle.getPropertyValue('--green-500'),
+                    borderColor:
+                        documentStyle.getPropertyValue('--green-500'),
+                    tension: 0.4,
                 }
-            ]
+            ],
         };
 
         this.chartOptions = {
             plugins: {
                 legend: {
                     labels: {
-                        color: textColor
-                    }
-                }
+                        color: textColor,
+                    },
+                },
             },
             scales: {
                 x: {
                     ticks: {
-                        color: textColorSecondary
+                        color: textColorSecondary,
                     },
                     grid: {
                         color: surfaceBorder,
-                        drawBorder: false
-                    }
+                        drawBorder: false,
+                    },
                 },
                 y: {
                     ticks: {
-                        color: textColorSecondary
+                        color: textColorSecondary,
                     },
                     grid: {
                         color: surfaceBorder,
-                        drawBorder: false
-                    }
-                }
-            }
+                        drawBorder: false,
+                    },
+                },
+            },
         };
     }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+    initChartByMonth() {
+        const documentStyle = getComputedStyle(document.documentElement);
+        this.chartDataMonth =[];
+        this.chartLabelMonth = [];
+        for(let i = 0; i<this.dataChartByMonth.length; i++) {
+            this.chartLabelMonth.push(this.dataChartByMonth[i].orderMonth);
+            this.chartDataMonth.push(this.dataChartByMonth[i].totalRevenue)
         }
+        this.chartMonth = {
+            labels: this.chartLabelMonth,
+            datasets: [
+                {
+                    label: 'Doanh số',
+                    data: this.chartDataMonth,
+                    fill: false,
+                    backgroundColor:
+                        documentStyle.getPropertyValue('--blue-500'),
+                    borderColor:
+                        documentStyle.getPropertyValue('--blue-500'),
+                    tension: 0.4,
+                }
+            ],
+        };
+        console.log(this.chartMonth)
+        console.log(this.chartDay)
     }
 
-    showToast()  {
-        this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-    }
+   
+
+   
+
+  
 }
