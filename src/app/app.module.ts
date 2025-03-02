@@ -14,6 +14,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
 // import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
 // import { CartComponent } from './app-management/components/auth/cart/cart.component';
+// import { LandingComponent } from './app-management/components/landing/landing.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
