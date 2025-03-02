@@ -12,6 +12,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
+import { AuthGuardAdmin } from './app-management/service/authGuard-Admin';
+import { AuthGuardStaff } from './app-management/service/authGuard-Staff';
 // import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
 // import { CartComponent } from './app-management/components/auth/cart/cart.component';
 
@@ -39,7 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-      AuthGuard,JwtHelperService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+      AuthGuard,JwtHelperService,AuthGuardAdmin,AuthGuardStaff,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         MessageService,ConfirmationService
     ],
     bootstrap: [AppComponent]

@@ -60,20 +60,10 @@ export class LoginComponent {
                         this.authService.setRole(data.data.role); // Lưu role vào storage
                         this.messageService.add({ severity: "success", summary: "Đăng nhập thành công" });
                         
-                        console.log(data.data);
                         // Điều hướng dựa trên role
                         this.router.navigate([this.authService.getRedirectUrl()]);
 
-                        // console.log(this.authService.getUsername())
-                        // this.authService.setRole(data.data.role);
-                        console.log(this.authService.getRedirectUrl())
-                        this.router.navigate([
-                            this.authService.getRedirectUrl(),
-                        ]);
-                        // console.log("Username sau khi đăng nhập:", this.authService.getUsername());
-                        // alert(`Đăng nhập thành công`);
-
-                       
+                        
                     } else
                         this.messageService.add({
                             severity: 'error',

@@ -17,9 +17,14 @@ import {DropdownModule} from 'primeng/dropdown';
 import {PasswordModule} from 'primeng/password';
 import { LoadingComponent } from './loading/loading.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ManageAccountComponent } from './manage-account/manage-account.component';
+import { TagModule } from 'primeng/tag';
+import { ActionHistoryComponent } from './action-history/action-history.component';
 @NgModule({
     declarations: [
-      LoadingComponent
+      LoadingComponent,
+      ManageAccountComponent,
+      ActionHistoryComponent
   ],
     imports: [
         CommonModule,
@@ -36,7 +41,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         ConfirmDialogModule,
         DropdownModule,
         PasswordModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        TagModule
     ],
     exports: [LoadingComponent]
 })

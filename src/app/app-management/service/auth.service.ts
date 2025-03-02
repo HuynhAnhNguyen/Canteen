@@ -64,7 +64,7 @@ export class AuthService {
     getRedirectUrl(): string {
         const role = this.getRole(); // Lấy role từ SecureStorage
         if (role === 'ROLE_ADMIN') {
-            return '/pages/dashboard'; // Điều hướng đến trang admin
+            return '/admin'; // Điều hướng đến trang admin
         } else {
             return ''; // Điều hướng đến trang home
         }
