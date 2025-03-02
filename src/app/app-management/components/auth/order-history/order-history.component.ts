@@ -32,6 +32,7 @@ export class OrderHistoryComponent implements OnInit {
   accountId: any;
   selectedOrderDetails: any[] = []; // Danh sách món ăn của đơn hàng
   showDetailModal: boolean = false;
+  userInfo: any = null;
 
 
   constructor(private http: HttpClient, 
@@ -44,13 +45,12 @@ export class OrderHistoryComponent implements OnInit {
       this.authService.getToken()
     );
   this.accountId = this.authService.getAccountid();
+  this.getUserInfo();
   this.loadOrders();
 
   }
 
   loadOrders() {
-    // const apiUrl = `http://13.239.169.8:8080/api/v1/project/order/findOrderByAccountId?accountId=${this.accountId}`;
-
     this.http.get<any>(environment.backendApiUrl +'/api/v1/project/order/findOrderByAccountId?accountId=' + this.accountId, { headers: this.header }).subscribe(
       (response) => {
         if (response.resultCode === 0) {
@@ -70,6 +70,14 @@ export class OrderHistoryComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Không thể tải lịch sử đơn hàng' });
       }
     );
+  }
+
+  getUserInfo() {
+    this.userInfo = {
+      fullname: this.authService.getFullname(),  // Lấy họ tên
+      email: this.authService.getEmail(),        // Lấy email
+      phonenumber: this.authService.getPhonenumber() // Lấy số điện thoại
+    };
   }
 
   viewOrderDetails(orderId: number) {
@@ -130,9 +138,8 @@ cancelOrder(orderId: number) {
       return; // Nếu người dùng bấm "Cancel", thoát khỏi hàm
   }
   console.log(orderId);
-  const apiUrl = `http://13.239.169.8:8080/api/v1/project/order/cancel?orderId=${orderId}`;
 
-  this.http.put(apiUrl, {}, { headers: this.header }).subscribe(
+  this.http.put(environment.backendApiUrl +'/api/v1/project/order/cancel?orderId='+ orderId, {}, { headers: this.header }).subscribe(
       (response: any) => {
           if (response.resultCode === 0) {
               this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đơn hàng đã được hủy.' });

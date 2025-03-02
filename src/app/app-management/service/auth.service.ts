@@ -60,10 +60,11 @@ export class AuthService {
     setToken(token: string) {
         this.secureStorageService.setItem(storageKey.TOKEN, token);
     }
+
     getRedirectUrl(): string {
         const role = this.getRole(); // Lấy role từ SecureStorage
         if (role === 'ROLE_ADMIN') {
-            return '/admin'; // Điều hướng đến trang admin
+            return '/pages/dashboard'; // Điều hướng đến trang admin
         } else {
             return ''; // Điều hướng đến trang home
         }

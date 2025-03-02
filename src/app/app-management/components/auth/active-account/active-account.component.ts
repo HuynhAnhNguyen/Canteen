@@ -56,7 +56,7 @@ export class ActiveAccountComponent implements OnInit {
         if(data.resultCode == "0") {
           this.messageService.add({severity:"success", summary:data.message});
           setTimeout(() => {
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/auth/dang-nhap']);
           }, 2000);
         }
         else 

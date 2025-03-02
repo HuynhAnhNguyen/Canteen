@@ -53,7 +53,8 @@ export class LoginComponent {
                         this.authService.setFullname(data.data.fullname);
                         this.authService.setAccountid(data.data.account_id);
                         this.authService.setCartid(data.data.cart_id);
-
+                        this.authService.setEmail(data.data.email);
+                        this.authService.setPhonenumber(data.data.phoneNumber);
                         // console.log(data.data.cart_id);
 
                         this.authService.setRole(data.data.role); // Lưu role vào storage

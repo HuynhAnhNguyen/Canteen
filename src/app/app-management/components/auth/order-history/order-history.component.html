@@ -1,6 +1,15 @@
 <!-- <p-toast></p-toast> -->
 <div class="order-history-container">
-    <h2>Lịch sử Đơn Hàng</h2>
+    <button style="margin-right: 10px;" routerLink="/" class="px-4 py-2 bg-blue-500 text-white rounded">Quay về trang chủ</button>
+    <button routerLink="/auth/gio-hang" class="px-4 py-2 bg-blue-500 text-white rounded">Giỏ hàng</button>
+
+    <h2 class="text-center text-xl font-bold mb-4">Lịch sử Đơn Hàng Của <strong> {{ userInfo.fullname }} </strong></h2>
+    <div *ngIf="userInfo">
+        <p><strong>Tên khách hàng: </strong> {{ userInfo.fullname }}</p>
+        <p><strong>Email: </strong> {{ userInfo.email }}</p>
+        <p><strong>Số điện thoại: </strong> {{ userInfo.phonenumber }}</p>
+      </div>
+    <!-- <h2></h2> -->
 
     <table *ngIf="orders.length > 0; else emptyOrders">
         <thead>

@@ -28,7 +28,6 @@ import { environment } from 'src/environments/environment';
 `]
 })
 export class SignUpComponent implements OnInit {
-
   userName: string = "";
   passWord: string = "";
   confirmPassWord: string = "";
@@ -62,20 +61,15 @@ export class SignUpComponent implements OnInit {
           phoneNumber: this.phoneNumber,
           fullname: this.fullname
         }).toPromise();
-
-      if (signUpResponse.resultCode === "0") {
+        console.log('API Response:', signUpResponse);
+        
+      if (signUpResponse.resultCode == "0") {
         console.log("signUpResponse.resultCode "+ signUpResponse.resultCode);
         this.messageService.add({ severity: "success", summary: "Đăng ký tài khoản thành công" });
 
-        try {
-          await this.sendOTP();
-        } catch (error) {
-          console.error("Lỗi khi gửi OTP:", error);
-        }
-
         setTimeout(() => {
           console.log("Chuyển hướng...");
-          this.router.navigate(['/auth/active']).then(success => {
+          this.router.navigate(['/auth/kich-hoat-tai-khoan']).then(success => {
             if (success) {
               console.log("Chuyển hướng thành công!");
             } else {
@@ -87,7 +81,6 @@ export class SignUpComponent implements OnInit {
         
       } else {
         console.log("signUpResponse.resultCode "+ signUpResponse.resultCode);
-
         this.messageService.add({ severity: "error", summary: signUpResponse.message });
       }
     } catch (error) {
@@ -104,20 +97,4 @@ export class SignUpComponent implements OnInit {
     return this.passWord === this.confirmPassWord;
   }
 
-  async sendOTP() {
-    try {
-      const otpResponse = await this.httpClient.post<any>(
-        environment.backendApiUrl + "/api/v1/project/auth/send-otp",
-        { email: this.email }
-      ).toPromise();
-
-      if (otpResponse.resultCode === "0") {
-        this.messageService.add({ severity: "success", summary: "Mã OTP đã được gửi đến email của bạn!" });
-      } else {
-        this.messageService.add({ severity: "error", summary: otpResponse.message });
-      }
-    } catch (error) {
-      this.messageService.add({ severity: "error", summary: "Không thể gửi OTP, vui lòng thử lại!" });
-    }
-  }
 }

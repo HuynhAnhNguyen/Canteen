@@ -43,13 +43,9 @@ export class CartComponent {
   loadCart() {
     // console.log("From cart " + this.authService.getCartid());
     // console.log(this.header);
-    this.cartId = this.authService.getCartid(); // Lấy ID tài khoản khi đăng nhập
-    // if (!accountId) {
-    //   this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Bạn cần đăng nhập để xem giỏ hàng' });
-    //   return;
-    // }
+    this.cartId = this.authService.getCartid();
 
-    this.http.get<any>(environment.backendApiUrl +'/api/v1/project/cartItem/info?cartId=' + this.cartId, {
+    this.http.get<any>(environment.backendApiUrl + '/api/v1/project/cartItem/info?cartId=' + this.cartId, {
       headers: this.header
     })
       .subscribe(
@@ -124,7 +120,7 @@ export class CartComponent {
       quantity: newQuantity
     };
 
-    this.http.put(environment.backendApiUrl +'/api/v1/project/cartItem/update', payload, { headers: this.header })
+    this.http.put(environment.backendApiUrl + '/api/v1/project/cartItem/update', payload, { headers: this.header })
       .subscribe(
         (response: any) => {
           if (response.resultCode === 0) {
@@ -150,7 +146,7 @@ export class CartComponent {
 
   // Xóa sản phẩm khỏi giỏ hàng
   deleteCartItem(cartItemId: number) {
-    this.http.delete(environment.backendApiUrl +`/api/v1/project/cartItem/delete?cartItemId=${cartItemId}`, { headers: this.header })
+    this.http.delete(environment.backendApiUrl + `/api/v1/project/cartItem/delete?cartItemId=${cartItemId}`, { headers: this.header })
       .subscribe(
         (response: any) => {
           if (response.resultCode === 0) {
@@ -177,17 +173,26 @@ export class CartComponent {
 
   // Đặt hàng
   placeOrder() {
-    const payload = {
-      accountId: this.authService.getAccountid(),
-      cartId: this.authService.getCartid(),
-    };
-    console.log(this.authService.getAccountid());
-    console.log(this.authService.getCartid());
-    this.http.post(environment.backendApiUrl +'/api/v1/project/order/create', payload, {
+    const accountId = this.authService.getAccountid();
+    const cartId = this.authService.getCartid();
+
+    console.log("Account ID:", accountId);
+    console.log("Cart ID:", cartId);
+
+    if (!accountId || !cartId) {
+      console.error("Lỗi: Account ID hoặc Cart ID không hợp lệ!");
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Không thể đặt hàng do thiếu thông tin' });
+      return;
+    }
+
+    const payload = { 'account_id':accountId,'cart_id': cartId };
+
+    this.http.post(environment.backendApiUrl + '/api/v1/project/order/create', payload, {
       headers: this.header
     })
       .subscribe(
         (response: any) => {
+          console.log('API Response:', response);
           if (response.resultCode === 0) {
             this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đặt hàng thành công!' });
             this.cartItems = [];

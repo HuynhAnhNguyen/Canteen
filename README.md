@@ -41,14 +41,11 @@ Home
 	Dang nhap
 	Dang xuat
 	404
-	
-	Xac minh tai khoan
-
-	Dang ky
-	
 	Dat hang
 	Xem lich su mua hang
 	Huy don
+	Xac minh tai khoan
+	Dang ky
 	Quen mat khau
 
 Admin
