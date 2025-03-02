@@ -11,6 +11,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
+// import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
 // import { CartComponent } from './app-management/components/auth/cart/cart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,7 +21,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent
+        AppComponent, NotfoundComponent, OrderHistoryComponent,
 
     ],
     imports: [

@@ -33,3 +33,45 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 >>>>>>> ad0be27 (Initial commit)
 >>>>>>> 69f9bc6 (Initial commit)
+Home
+	Danh sach san pham
+	Xem chi tiet san pham
+	Them san pham vao gio hang
+	Tang/giam so luong
+	Dang nhap
+	Dang xuat
+	404
+	
+	Xac minh tai khoan
+
+	Dang ky
+	
+	Dat hang
+	Xem lich su mua hang
+	Huy don
+	Quen mat khau
+
+Admin
+	Quan li thuc don
+		Them, sua, xoa mon an
+		Cap nhat gia
+		An mon an
+	Quan li don hang
+		Xem danh sach
+		Xac nhan don hang & cap nhat trang thai
+		Thong bao gui mail
+	Quan li tai khoan kh
+		Xem danh sach khach hang
+		Khoa/ mo tai khoan
+	Thong ke doanh thu
+		Theo ngay
+		Theo thang
+	
+Super Admin	
+	Quan ly nhan vien
+		Them sua xoa tk nhan vien
+		Phan quyen
+	Quan ly he thong
+		Xem lich su hoat dong cua nhan vien
+	
+	

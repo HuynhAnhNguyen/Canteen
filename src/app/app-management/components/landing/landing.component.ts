@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/app-management/service/auth.service';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { storageKey } from 'src/app/app-constant';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-landing',
@@ -61,6 +62,86 @@ import { storageKey } from 'src/app/app-constant';
                 max-width: 100%;
             }
         }
+        
+        /* Nền mờ của modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Làm tối nền */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Khi modal mở, hiển thị */
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Nội dung modal */
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Khi modal mở, hiệu ứng trượt xuống */
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+/* Tiêu đề */
+.modal-content h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Các đoạn văn */
+.modal-content p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Nút đóng */
+.modal-close {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background 0.3s;
+}
+
+.modal-close:hover {
+  background: #c0392b;
+}
+
+/* Responsive - modal nhỏ hơn trên màn hình nhỏ */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+}
+
     `]
 })
 // export class LandingComponent {
@@ -73,13 +154,17 @@ export class LandingComponent implements OnInit {
   fullname: string = '';
   foods: any[] = []; // Danh sách món ăn
   accountId: string = '';
+  email: string = '';
+  phonenumber: string = '';
+  selectedFood: any = null;
+  showDetailModal: boolean = false; // Điều khiển hiển thị modal
 
   constructor(
     private foodService: FoodService,
     public layoutService: LayoutService,
     public router: Router,
     private authService: AuthService,
-    private http: HttpClient, 
+    private http: HttpClient,
     private messageService: MessageService
   ) { }
 
@@ -89,7 +174,7 @@ export class LandingComponent implements OnInit {
     this.header = new HttpHeaders().set(
       storageKey.AUTHORIZATION,
       this.authService.getToken()
-  );
+    );
   }
 
   showLoginAlert() {
@@ -101,6 +186,8 @@ export class LandingComponent implements OnInit {
     if (this.isLoggedIn) {
       this.fullname = this.authService.getFullname();
       this.accountId = this.authService.getAccountid();
+      this.email = this.authService.getEmail();
+      this.phonenumber = this.authService.getPhonenumber();
       // console.log("Username khi vào Landing Page:", this.fullname);
       // console.log("AccountID khi vào Landing Page:", this.accountId);
     }
@@ -124,11 +211,15 @@ export class LandingComponent implements OnInit {
     );
   }
 
-  // addToCart(food: any) {
-  //   console.log('Sản phẩm đã thêm vào giỏ hàng:', food);
+  viewDetails(food: any) {
+    this.selectedFood = food;
+    this.showDetailModal = true; // Bật modal hiển thị chi tiết sản phẩm
+  }
 
-  //   alert(`Đã thêm vào giỏ hàng thành công.\n\nTên món ăn: ${food.name}\nGiá: ${food.price.toLocaleString()} VND`);
-  // }
+  closeDetail() {
+    this.showDetailModal = false;
+    this.selectedFood = null;
+  }
 
   addToCart(food: any) {
     if (!this.isLoggedIn) {
@@ -145,7 +236,7 @@ export class LandingComponent implements OnInit {
       cartId: 0 // Nếu giỏ hàng chưa có, backend sẽ tự tạo
     };
 
-    this.http.post('http://13.239.169.8:8080/api/v1/project/cartItem/add', cartItem,{
+    this.http.post(environment.backendApiUrl +'/api/v1/project/cartItem/add', cartItem, {
       headers: this.header
     }).subscribe(
       (response) => {

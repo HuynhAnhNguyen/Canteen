@@ -97,6 +97,32 @@ export class AuthService {
         return this.secureStorageService.getItem(storageKey.FULL_NAME)
     }
 
+    setEmail(email: string) {
+        // console.log("SET USERNAME TRONG AUTH.SERVICE.TS "+fullname); 
+        this.secureStorageService.setItem(storageKey.EMAIL, email)
+        // console.log("SET USERNAME TRONG AUTH.SERVICE.TS 2 "+ storageKey.FULL_NAME); 
+
+    }
+    getEmail(): string {
+        // console.log("Trong getUsername "+this.secureStorageService.getItem(storageKey.FULL_NAME)); 
+        return this.secureStorageService.getItem(storageKey.EMAIL)
+    }
+
+    setPhonenumber(phonenumber: string) {
+        // console.log("SET USERNAME TRONG AUTH.SERVICE.TS "+fullname); 
+        this.secureStorageService.setItem(storageKey.PHONE_NUMBER, phonenumber)
+        // console.log("SET USERNAME TRONG AUTH.SERVICE.TS 2 "+ storageKey.FULL_NAME); 
+
+    }
+    getPhonenumber(): string {
+        console.log("storageKey "+storageKey.PHONE_NUMBER);
+        console.log("storageKey "+storageKey.EMAIL);
+        console.log("storageKey "+storageKey.FULL_NAME);
+        // console.log("Trong getUsername "+this.secureStorageService.getItem(storageKey.FULL_NAME)); 
+        return this.secureStorageService.getItem(storageKey.PHONE_NUMBER)
+    }
+
+
     setAccountid(accountid: string) {
         // console.log("ACCOUNT_ID "+ accountid); 
         this.secureStorageService.setItem(storageKey.ACCOUNT_ID, accountid)
@@ -104,7 +130,7 @@ export class AuthService {
 
     }
     getAccountid(): string {
-        console.log("ACCOUNT_ID "+this.secureStorageService.getItem(storageKey.accountid)); 
+        // console.log("ACCOUNT_ID "+this.secureStorageService.getItem(storageKey.accountid)); 
         return this.secureStorageService.getItem(storageKey.ACCOUNT_ID)
     }
 

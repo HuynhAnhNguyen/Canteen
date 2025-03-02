@@ -4,7 +4,7 @@
         <div
             class="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3">
             <a class="flex align-items-center" href="#">
-                <img src="assets/layout/images/logo.svg" alt="Sakai Logo" height="50" class="mr-0 lg:mr-2"><span
+                <img src="assets/layout/images/logo.svg" alt="Logo" height="50" class="mr-0 lg:mr-2"><span
                     class="text-900 font-medium text-2xl line-height-3 mr-8">Fooddy</span>
             </a>
             <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden"
@@ -16,8 +16,7 @@
                 <ul
                     class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row cursor-pointer">
                     <li>
-                        <a routerLink="/" pRipple
-                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                        <a routerLink="/" pRipple class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Trang chủ</span>
                         </a>
                     </li>
@@ -26,20 +25,20 @@
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Giỏ hàng</span>
                         </a> -->
-                        <a *ngIf="isLoggedIn" [routerLink]="['/auth/cart']" fragment="features"
-                            pRipple class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                        <a *ngIf="isLoggedIn" [routerLink]="['/auth/gio-hang']" fragment="features" pRipple
+                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Giỏ hàng</span>
                         </a>
 
                         <!-- Nếu chưa đăng nhập -->
-                        <a *ngIf="!isLoggedIn" fragment="features"
-                        pRipple class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                        <a *ngIf="!isLoggedIn" fragment="features" pRipple (click)="showLoginAlert()"
+                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Giỏ hàng</span>
                         </a>
 
                     </li>
                     <li>
-                        <a (click)="router.navigate(['/pages/landing'], {fragment: 'highlights'})" pRipple
+                        <a (click)="router.navigate(['/pages/404'], {fragment: 'highlights'})" pRipple
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Giới thiệu</span>
                         </a>
@@ -51,12 +50,12 @@
                     <div *ngIf="!isLoggedIn">
                         <button pButton pRipple label="Đăng nhập"
                             class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"
-                            routerLink="/auth/login">
+                            routerLink="/auth/dang-nhap">
                         </button>
 
                         <button pButton pRipple label="Đăng ký"
                             class="p-button-rounded border-none ml-5 font-light line-height-2 bg-blue-500 text-white"
-                            routerLink="/auth/signup">
+                            routerLink="/auth/dang-ky">
                         </button>
                     </div>
 
@@ -91,39 +90,33 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ food.name }}</h5>
                                 <p class="card-text text-danger fw-bold">{{ food.price | number:'1.0-2' }} VND</p>
+                                <!-- Nút Xem chi tiết -->
+                                <button style="margin-right: 10px;" class="btn btn-info" (click)="viewDetails(food)">
+                                    Xem chi tiết
+                                </button>
+
+                                <!-- Nút Thêm vào giỏ hàng -->
                                 <button class="btn btn-primary" (click)="addToCart(food)">
                                     Thêm vào giỏ hàng
                                 </button>
-                                
+
+                                <!-- Modal hiển thị chi tiết sản phẩm -->
+                                <div *ngIf="showDetailModal" class="modal show">
+                                    <div class="modal-content">
+                                        <img [src]="'http://13.239.169.8:8080/api/v1/project/auth/' + selectedFood?.imageUrl"
+                                style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
+                                        <h2>{{ selectedFood?.name }}</h2>
+                                        <p><strong>Giá:</strong> {{ selectedFood?.price | number:'1.0-2' }} VND</p>
+                                        <p><strong>Mô tả:</strong> {{ selectedFood?.description }}</p>
+
+                                        <button class="btn btn-danger" (click)="closeDetail()">Đóng</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-                <!-- <div style="margin-bottom: 20px; margin-right: 15px;" class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="product-item border rounded shadow-sm">
-                        <div class="position-relative bg-light overflow-hidden">
-                            <img style="padding: 10px;" class="img-fluid w-90" src="assets/layout/images/hamburger.jpg" alt="">
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5 mb-2" href="">Fresh Tomato</a>
-                            <span class="text-primary me-1">$19.00</span>
-                        </div>
-
-                        <div class="d-flex border-top">
-                            <small class="w-100 text-center py-2">
-                                <a class="btn btn-primary w-100" href="">
-                                    <i class="fa fa-shopping-bag me-2"></i> Thêm vào giỏ hàng
-                                </a>
-                            </small>
-                        </div>
-                        
-                    </div>
-                </div> -->
-
-
             </div>
         </div>
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">

@@ -19,6 +19,8 @@ export const storageKey: any = {
     FULL_NAME: 'fullname',
     ACCOUNT_ID: 'accountid',
     CART_ID: 'cartid',
+    EMAIL: 'email',
+    PHONE_NUMBER: 'phonenumber'
 };
 export const name: any = {
     App: 'APPLICATION',

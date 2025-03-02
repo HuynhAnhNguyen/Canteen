@@ -41,8 +41,16 @@
                         [toggleMask]="true" styleClass="w-full mb-3"></p-password>
 
 
-
-                    <button pButton pRipple label="Sign Up" (click)="signup()" class="w-full p-3 text-xl"></button>
+                    <div class="flex align-items-center justify-content-between mb-5">
+                        <div class="flex align-items-center">
+                            <a class="font-medium no-underline ml-2 text-right cursor-pointer"
+                                [routerLink]="['/auth/dang-nhap']" routerLinkActive="router-link-active"
+                                style="color: var(--primary-color)">Đã có tài khoản? Đăng nhập ngay.</a>
+                        </div>
+                    </div>
+                    <button pButton pRipple [disabled]="!fullname ||!userName ||!email ||!phoneNumber ||!passWord ||!confirmPassWord" label="Đăng ký" (click)="signup()"
+                        class="w-full p-3 text-xl"></button>
+                    <!-- <button pButton pRipple [disabled]="!username||!password" label="Đăng ký" (click)="signup()" class="w-full p-3 text-xl"></button> -->
                 </div>
             </div>
         </div>

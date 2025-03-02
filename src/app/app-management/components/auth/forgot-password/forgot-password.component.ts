@@ -22,9 +22,9 @@ export class ForgotPasswordComponent implements OnInit {
     await this.httpClient.post<any>(environment.backendApiUrl+"/api/v1/project/auth/forgotpw",{userName:this.email}).toPromise().then(
       data => {
         if(data.resultCode == "0") {
-          this.messageService.add({severity:'success',summary:'Successfully',detail:'Please check your email'});
+          this.messageService.add({severity:'success',summary:'Thành công',detail:'Vui lòng kiểm tra email của bạn.'});
           setTimeout(() => {
-            this.router.navigate(['/auth/reset-password']);
+            this.router.navigate(['/auth/khoi-phuc-mat-khau']);
           }, 3000); 
         }
         else 

@@ -42,6 +42,7 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
   }
+
   async signup() {
     if (!this.isPasswordMatch()) {
       this.messageService.add({ severity: "error", summary: "Mật khẩu xác nhận không khớp!" });
@@ -63,15 +64,30 @@ export class SignUpComponent implements OnInit {
         }).toPromise();
 
       if (signUpResponse.resultCode === "0") {
+        console.log("signUpResponse.resultCode "+ signUpResponse.resultCode);
         this.messageService.add({ severity: "success", summary: "Đăng ký tài khoản thành công" });
 
-        // Gửi OTP sau khi đăng ký thành công
-        await this.sendOTP();
+        try {
+          await this.sendOTP();
+        } catch (error) {
+          console.error("Lỗi khi gửi OTP:", error);
+        }
 
         setTimeout(() => {
-          this.router.navigate(['/auth/active']);
+          console.log("Chuyển hướng...");
+          this.router.navigate(['/auth/active']).then(success => {
+            if (success) {
+              console.log("Chuyển hướng thành công!");
+            } else {
+              console.log("Chuyển hướng thất bại!");
+            }
+          });
+          
         }, 2000);
+        
       } else {
+        console.log("signUpResponse.resultCode "+ signUpResponse.resultCode);
+
         this.messageService.add({ severity: "error", summary: signUpResponse.message });
       }
     } catch (error) {
