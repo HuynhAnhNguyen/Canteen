@@ -142,6 +142,26 @@ import { environment } from 'src/environments/environment';
   }
 }
 
+.banner-container {
+    // padding: 91px;
+    width: auto;
+    max-width: auto; /* Độ rộng tối đa */
+    height: auto; /* Chiều cao cố định */
+    margin: 0 auto; /* Căn giữa */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; /* Bo góc nhẹ */
+    // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+}
+
+.banner-container img {
+    // width: 100%;
+    // height: 100%;
+    // object-fit: cover; /* Giúp ảnh bao phủ toàn bộ banner */
+}
+
     `]
 })
 // export class LandingComponent {

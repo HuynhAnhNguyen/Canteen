@@ -16,6 +16,7 @@ import { AuthGuardAdmin } from './app-management/service/authGuard-Admin';
 import { AuthGuardStaff } from './app-management/service/authGuard-Staff';
 // import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
 // import { CartComponent } from './app-management/components/auth/cart/cart.component';
+// import { LandingComponent } from './app-management/components/landing/landing.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
