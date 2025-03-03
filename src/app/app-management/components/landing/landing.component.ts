@@ -343,27 +343,13 @@ export class LandingComponent implements OnInit {
   }
 
   loadFoods() {
-    if (this.isLoading) return; // Nếu đang tải thì không gọi lại
-    this.isLoading = true;
-
-    // this.foodService.getAllFoods().subscribe(
-    //   (data) => {
-    //     this.foods = data.data; // Lưu dữ liệu API vào biến
-    //     // console.log('Danh sách món ăn:', this.foods);
-    //   },
-    //   (error) => {
-    //     console.error('Lỗi khi lấy API', error);
-    //   }
-    // );
-    this.foodService.getFoodsByPage(this.page).subscribe(
+    this.foodService.getAllFoods().subscribe(
       (data) => {
-        this.foods = [...this.foods, ...data.data]; // Thêm dữ liệu mới vào danh sách
-        this.page++; // Tăng trang lên 1 để lần sau gọi trang tiếp theo
-        this.isLoading = false;
+        this.foods = data.data; // Lưu dữ liệu API vào biến
+        // console.log('Danh sách món ăn:', this.foods);
       },
       (error) => {
-        console.error('Lỗi khi tải món ăn:', error);
-        this.isLoading = false;
+        console.error('Lỗi khi lấy API', error);
       }
     );
   }
