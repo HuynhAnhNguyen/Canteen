@@ -2,6 +2,7 @@ import { AuthService } from 'src/app/app-management/service/auth.service';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -17,14 +18,16 @@ export class AppTopBarComponent implements OnInit {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService,private authService: AuthService) { }
+    constructor(public layoutService: LayoutService,private authService: AuthService,private router: Router) { }
     ngOnInit() {
        this.username=this.authService.getUsername();
     }
     isShowDialog: boolean = false;
     username:any;
     position: string ='top-right';
-    showDialog() {
-        this.isShowDialog=true;
+    logout() {
+        this.authService.setToken('');
+        this.router.navigate(['']);
     }
+    
 }

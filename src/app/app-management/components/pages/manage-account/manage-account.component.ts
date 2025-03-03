@@ -47,12 +47,13 @@ export class ManageAccountComponent implements OnInit {
         private confirmationService: ConfirmationService
     ) {}
     header: any;
-
+    role: string = '';
     ngOnInit(): void {
         this.header = new HttpHeaders().set(
             storageKey.AUTHORIZATION,
             this.authService.getToken()
         );
+        this.role = this.authService.getRole();
         this.loadData();
     }
     applyFilterGlobal($event: any, stringVal: any) {
@@ -64,7 +65,7 @@ export class ManageAccountComponent implements OnInit {
     async loadData() {
         this.loading = true;
         await this.http
-            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/account/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/account/findAll?role='+this.role, {
                 headers: this.header,
             }).toPromise()
             .then(

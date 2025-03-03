@@ -8,7 +8,7 @@ import { ActionHistoryComponent } from './action-history/action-history.componen
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'empty', loadChildren: () => import('./empty/emptydemo.module').then(m => m.EmptyDemoModule) },
-        { path: 'manageAccount', component: ManageAccountComponent, canActivate:[AuthGuard,AuthGuardAdmin]},
+        { path: 'manageAccount', component: ManageAccountComponent, canActivate:[AuthGuard]},
         { path: 'action', component: ActionHistoryComponent, canActivate:[AuthGuard,AuthGuardAdmin]},
     ])],
     exports: [RouterModule]

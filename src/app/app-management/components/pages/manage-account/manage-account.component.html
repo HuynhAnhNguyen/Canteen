@@ -8,7 +8,7 @@
             <ng-template pTemplate="left">
                 <div class="my-2">
                     <button pButton pRipple label="Tạo  tài khoản" (click)="showCreateAccount()"  pTooltip="Tạo tài khoản" icon="pi pi-plus"
-                        class="p-button-success mr-2"></button>
+                        class="p-button-success mr-2"[disabled]="this.role !='ROLE_ADMIN'" ></button>
                    
 
                 </div>
@@ -125,7 +125,7 @@
 
 <p-dialog [(visible)]="isShowAccountDetail" [maximizable]="true" [resizable]="false"
     [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin tài khoản"
-    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '30vw'}"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
     [modal]="true">
 
     <ng-template pTemplate="content">
@@ -155,7 +155,7 @@
             <div class="field col-12 lg:col-3">
                 <label for="code" style="font-weight: bold;">Vai trò</label>
                 <p-dropdown id="code" [options]="listRole" (onChange)="changeRole()" [(ngModel)]="accountSelected.role"
-                placeholder="Cập nhật vai trò"  optionLabel="name" optionValue="name"></p-dropdown>
+                placeholder="Cập nhật vai trò" [disabled]="this.role !='ROLE_ADMIN'"  optionLabel="name" optionValue="name"></p-dropdown>
             </div>
             <div class="field col-12 lg:col-3">
                 <label for="code" style="font-weight: bold;">Trạng thái</label>
@@ -170,7 +170,7 @@
     </ng-template>
     <ng-template pTemplate="footer">
         <!-- <button pButton pRipple label="Cập nhật"  icon="pi pi-comments" class="p-button-text"></button> -->
-        <button pButton pRipple label="Xóa" pTooltip ="Xóa tài khoản" (click)="confirmDelete()"   icon="pi pi-trash" class="p-button-text"></button>
+        <button pButton pRipple label="Xóa" pTooltip ="Xóa tài khoản" [disabled]="this.role !='ROLE_ADMIN'" (click)="confirmDelete()"   icon="pi pi-trash" class="p-button-text"></button>
         <button pButton pRipple label="Xong" (click)="isShowAccountDetail = false"  class="p-button-text"></button>
        
     </ng-template>
