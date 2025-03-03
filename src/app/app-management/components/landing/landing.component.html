@@ -76,14 +76,41 @@
             </div>
         </div>
         
-        <div class="banner-container">
+        <!-- <div class="banner-container">
             <img src="assets/demo/images/banner/banner.jpg" alt="Banner">
+            
+        </div> -->
+        <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
+            <section class="cta-banner cd-padding-sm">
+                <div class="cta-banner__grid">
+                    <div class="cta-banner__content">
+                        <h1 class="cta-banner__title">Fooddy – Đặt món nhanh, thưởng thức trọn vị!</h1>
+                    
+                        <p class="cta-banner__description">Thời gian mở cửa 7h:30 - 18h</p>
+
+                        <div class="cta-banner__btns first">
+                            <a [routerLink]="[]" fragment="datmonan" class="button2" >Đặt món ngay</a>
+                            <!-- <a href="#0" class="cd-btn cd-btn--primary">Đặt món ngay</a> -->
+                            <!-- <a href="#0" class="cd-link cd-link--contrast-higher">Learn more</a> -->
+                        </div>
+                    </div>
+                
+                    <figure>
+                        <img class="cta-banner__img cd-radius-md" src="assets/demo/images/banner/banner.jpg" alt="Banner">
+                    </figure>
+                </div>
+            </section>
         </div>
         
-        <div id="features" class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
-            <div class="grid justify-content-center">
+        
+        <!-- <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
+            <div class="grid justify-content-center" id="datmonan"> -->
+                <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
+                    <div class="grid justify-content-center" id="datmonan" infiniteScroll 
+                         [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5"
+                         [infiniteScrollThrottle]="300" (scrolled)="loadMoreFoods()">
                 <div class="col-12 text-center mt-8 mb-4">
-                    <h2 class="text-900 font-normal mb-2">Danh sách các món ăn</h2>
+                    <h2 class="text-900 font-normal mb-2"><b>Danh sách các món ăn</b></h2>
                 </div>
 
                 <div class="row">
@@ -121,6 +148,10 @@
                         </div>
                     </div>
                 </div>
+                 <!-- Hiển thị loading khi đang tải thêm sản phẩm -->
+        <div *ngIf="isLoading" class="text-center mt-4">
+            <p>Đang tải thêm món ăn...</p>
+        </div>
             </div>
         </div>
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">

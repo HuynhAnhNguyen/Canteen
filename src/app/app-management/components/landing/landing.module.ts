@@ -8,6 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
     imports: [
         CommonModule,
@@ -17,7 +18,8 @@ import { ToastModule } from 'primeng/toast';
         ChartModule,
         PanelModule,
         ButtonModule,
-        ToastModule
+        ToastModule,
+        InfiniteScrollModule,
     ],
     declarations: [LandingComponent]
 })
