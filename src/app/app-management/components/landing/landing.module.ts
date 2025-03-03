@@ -8,7 +8,8 @@ import { ChartModule } from 'primeng/chart';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -19,7 +20,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         PanelModule,
         ButtonModule,
         ToastModule,
-        InfiniteScrollModule,
+        NgxPaginationModule
     ],
     declarations: [LandingComponent]
 })

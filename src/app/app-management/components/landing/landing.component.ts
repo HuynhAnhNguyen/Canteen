@@ -7,7 +7,6 @@ import { MessageService } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { storageKey } from 'src/app/app-constant';
 import { environment } from 'src/environments/environment';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-landing',
@@ -298,8 +297,9 @@ export class LandingComponent implements OnInit {
   phonenumber: string = '';
   selectedFood: any = null;
   showDetailModal: boolean = false; // Điều khiển hiển thị modal
-  page : number = 1;
-  isLoading : boolean = false;
+  page: number = 1; // Trang hiện tại
+  pageSize: number = 9; // Số món ăn hiển thị trên mỗi trang
+
 
   constructor(
     private foodService: FoodService,
@@ -335,6 +335,10 @@ export class LandingComponent implements OnInit {
     }
   }
 
+  onPageChange(pageSize: number) {
+    this.page = pageSize;
+  }
+  
 
   logout() {
     this.authService.logout();

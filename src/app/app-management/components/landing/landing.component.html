@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- <div class="banner-container">
             <img src="assets/demo/images/banner/banner.jpg" alt="Banner">
             
@@ -85,33 +85,34 @@
                 <div class="cta-banner__grid">
                     <div class="cta-banner__content">
                         <h1 class="cta-banner__title">Fooddy – Đặt món nhanh, thưởng thức trọn vị!</h1>
-                    
+
                         <p class="cta-banner__description">Thời gian mở cửa 7h:30 - 18h</p>
 
                         <div class="cta-banner__btns first">
-                            <a [routerLink]="[]" fragment="datmonan" class="button2" >Đặt món ngay</a>
+                            <a [routerLink]="[]" fragment="datmonan" class="button2">Đặt món ngay</a>
                             <!-- <a href="#0" class="cd-btn cd-btn--primary">Đặt món ngay</a> -->
                             <!-- <a href="#0" class="cd-link cd-link--contrast-higher">Learn more</a> -->
                         </div>
                     </div>
-                
+
                     <figure>
-                        <img class="cta-banner__img cd-radius-md" src="assets/demo/images/banner/banner.jpg" alt="Banner">
+                        <img class="cta-banner__img cd-radius-md" src="assets/demo/images/banner/banner.jpg"
+                            alt="Banner">
                     </figure>
                 </div>
             </section>
         </div>
-        
-        
+
+
         <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
             <div class="grid justify-content-center" id="datmonan">
-                
+
                 <div class="col-12 text-center mt-8 mb-4">
                     <h2 class="text-900 font-normal mb-2"><b>Danh sách các món ăn</b></h2>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4 mb-4" *ngFor="let food of foods">
+                    <div class="col-md-4 mb-4" *ngFor="let food of foods | paginate: { itemsPerPage: pageSize, currentPage: page }">
                         <div class="card">
                             <img [src]="'http://13.239.169.8:8080/api/v1/project/auth/' + food.imageUrl"
                                 style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
@@ -132,7 +133,7 @@
                                 <div *ngIf="showDetailModal" class="modal show">
                                     <div class="modal-content">
                                         <img [src]="'http://13.239.169.8:8080/api/v1/project/auth/' + selectedFood?.imageUrl"
-                                style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
+                                            style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
                                         <h2>{{ selectedFood?.name }}</h2>
                                         <p><strong>Giá:</strong> {{ selectedFood?.price | number:'1.0-2' }} VND</p>
                                         <p><strong>Mô tả:</strong> {{ selectedFood?.description }}</p>
@@ -145,10 +146,10 @@
                         </div>
                     </div>
                 </div>
-                 <!-- Hiển thị loading khi đang tải thêm sản phẩm -->
-        <div *ngIf="isLoading" class="text-center mt-4">
-            <p>Đang tải thêm món ăn...</p>
-        </div>
+                <!-- Phân trang -->
+                <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+
+
             </div>
         </div>
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
@@ -172,14 +173,14 @@
                             <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Tin tức</a>
                             <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Tuyển dụng</a>
                         </div>
-                
+
                         <!-- <div class="col-12 md:col-4 mt-4 md:mt-0">
                             <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Tài nguyên</h4>
                             <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Bắt đầu</a>
                             <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Học tập</a>
                             <a class="line-height-3 text-xl block cursor-pointer text-700">Nghiên cứu điển hình</a>
                         </div> -->
-                
+
                         <div class="col-12 md:col-6 mt-6 md:mt-0">
                             <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Trợ giúp</h4>
                             <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Sự kiện</a>
