@@ -82,7 +82,7 @@ export class OrderHistoryComponent implements OnInit {
 
   viewOrderDetails(orderId: number) {
     console.log("Đang tải chi tiết đơn hàng, OrderID:", orderId);
-    this.http.get<any>(environment.backendApiUrl +'/api/v1/project/orderItem/findOrderItemByOrderId?orderId=' + {orderId}, { headers: this.header }).subscribe(
+    this.http.get<any>(environment.backendApiUrl +'/api/v1/project/orderItem/findOrderItemByOrderId?orderId=' + orderId, { headers: this.header }).subscribe(
       (response) => {
         if (response.resultCode === 0) {
           if (response.data.length > 0) {

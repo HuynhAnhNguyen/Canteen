@@ -245,7 +245,7 @@ export class LandingComponent implements OnInit {
     if (!this.isLoggedIn) {
       // this.messageService.add({ severity: 'error', summary: 'Thất bại', detail: 'Sản phẩm đã được thêm vào giỏ hàng!' });
       alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.");
-      this.router.navigate(['/auth/login']); // Điều hướng đến trang đăng nhập
+      this.router.navigate(['/auth/dang-nhap']); // Điều hướng đến trang đăng nhập
       return;
     }
 
