@@ -61,6 +61,11 @@ export class AppMenuComponent implements OnInit {
                     icon: 'pi pi-fw pi-briefcase',
                     routerLink: ['/pages'],
                     items: [
+                        {
+                            label: 'Quản lý tài khoản',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/manageAccount']
+                        },
                        
                         {
                             label: 'Landing',

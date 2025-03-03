@@ -18,6 +18,7 @@ import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 @NgModule({
     declarations: [
         AppMenuitemComponent,
@@ -40,7 +41,8 @@ import { DialogModule } from 'primeng/dialog';
         RippleModule,
         RouterModule,
         AppConfigModule,
-        DialogModule
+        DialogModule,
+        ButtonModule
     ],
     exports: [AppLayoutComponent]
 })
