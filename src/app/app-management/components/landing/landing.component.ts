@@ -7,11 +7,13 @@ import { MessageService } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { storageKey } from 'src/app/app-constant';
 import { environment } from 'src/environments/environment';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styles: [`
+    html { scroll-behavior: smooth;}
         #hero{
             background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #EEEFAF 0%, #C3E3FA 100%);
             height:700px;
@@ -144,17 +146,135 @@ import { environment } from 'src/environments/environment';
 
 .banner-container {
     // padding: 91px;
-    width: auto;
-    max-width: auto; /* Độ rộng tối đa */
-    height: auto; /* Chiều cao cố định */
+    width: 100%;
+    //max-width: auto; /* Độ rộng tối đa */
+    height: 300px; /* Chiều cao cố định */
     margin: 0 auto; /* Căn giữa */
-    overflow: hidden;
+    // overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px; /* Bo góc nhẹ */
+    // border-radius: 10px; /* Bo góc nhẹ */
     // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+    
 }
+
+
+.cta-banner {
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 0.75em;
+  box-shadow: 0 0 0 1px hsla(230, 13%, 9%, 0.05),
+              0 0.3px 0.4px hsla(230, 13%, 9%, 0.02),
+              0 0.9px 1.5px hsla(230, 13%, 9%, 0.045),
+              0 3.5px 6px hsla(230, 13%, 9%, 0.09);
+  overflow: hidden;
+}
+
+.cta-banner__grid {
+  // display : grid;
+  // align-items: center;
+  // gap: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+}
+
+.cta-banner__grid > * {
+  min-width: 0;
+}
+
+.cta-banner__content {
+  text-align: center;
+  display: grid;
+  gap: 0.75rem;
+  min-width: 30% !important;
+}
+
+
+.cd-padding-sm {
+  padding: 1.5rem;
+}
+
+.cd-radius-md {
+  border-radius: 0.375em;
+}
+
+/* From Uiverse.io by shah1345 */ 
+.button2 {
+  display: inline-block;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #090909;
+  padding: 0.7em 1.7em;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  border: 1px solid #e8e8e8;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.button2:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.button2:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.25);
+  top: 100%;
+  width: 140%;
+  height: 180%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:after {
+  content: "";
+  position: absolute;
+  left: 55%;
+  transform: translateX(-50%) scaleY(1) scaleX(1.45);
+  top: 180%;
+  width: 160%;
+  height: 190%;
+  background-color: #009087;
+  border-radius: 50%;
+  display: block;
+  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.button2:hover {
+  color: #ffffff;
+  border: 1px solid #009087;
+}
+
+.button2:hover:before {
+  top: -35%;
+  background-color: #009087;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button2:hover:after {
+  top: -45%;
+  background-color: #009087;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+
+.cta-banner__img {
+  width: 100%;
+}
+
 
 .banner-container img {
     // width: 100%;
@@ -178,6 +298,8 @@ export class LandingComponent implements OnInit {
   phonenumber: string = '';
   selectedFood: any = null;
   showDetailModal: boolean = false; // Điều khiển hiển thị modal
+  page : number = 1;
+  isLoading : boolean = false;
 
   constructor(
     private foodService: FoodService,
@@ -213,6 +335,7 @@ export class LandingComponent implements OnInit {
     }
   }
 
+
   logout() {
     this.authService.logout();
     this.isLoggedIn = false;
@@ -220,16 +343,35 @@ export class LandingComponent implements OnInit {
   }
 
   loadFoods() {
-    this.foodService.getAllFoods().subscribe(
+    if (this.isLoading) return; // Nếu đang tải thì không gọi lại
+    this.isLoading = true;
+
+    // this.foodService.getAllFoods().subscribe(
+    //   (data) => {
+    //     this.foods = data.data; // Lưu dữ liệu API vào biến
+    //     // console.log('Danh sách món ăn:', this.foods);
+    //   },
+    //   (error) => {
+    //     console.error('Lỗi khi lấy API', error);
+    //   }
+    // );
+    this.foodService.getFoodsByPage(this.page).subscribe(
       (data) => {
-        this.foods = data.data; // Lưu dữ liệu API vào biến
-        // console.log('Danh sách món ăn:', this.foods);
+        this.foods = [...this.foods, ...data.data]; // Thêm dữ liệu mới vào danh sách
+        this.page++; // Tăng trang lên 1 để lần sau gọi trang tiếp theo
+        this.isLoading = false;
       },
       (error) => {
-        console.error('Lỗi khi lấy API', error);
+        console.error('Lỗi khi tải món ăn:', error);
+        this.isLoading = false;
       }
     );
   }
+
+// Khi cuộn xuống gọi hàm này để tải thêm
+loadMoreFoods() {
+  this.loadFoods();
+}
 
   viewDetails(food: any) {
     this.selectedFood = food;

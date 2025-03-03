@@ -14,6 +14,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
 import { AuthGuardAdmin } from './app-management/service/authGuard-Admin';
 import { AuthGuardStaff } from './app-management/service/authGuard-Staff';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 // import { OrderHistoryComponent } from './app-management/components/auth/order-history/order-history.component';
 // import { CartComponent } from './app-management/components/auth/cart/cart.component';
 // import { LandingComponent } from './app-management/components/landing/landing.component';
@@ -32,6 +33,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AppLayoutModule,
         BrowserModule,
         HttpClientModule,
+        InfiniteScrollModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

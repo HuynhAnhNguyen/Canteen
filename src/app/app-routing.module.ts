@@ -26,7 +26,7 @@
 // export class AppRoutingModule {
 // }
 
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, ExtraOptions  } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './app-management/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
@@ -86,14 +86,17 @@ const routes: Routes = [
     }
 ];
 
+
+
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, {
             useHash: false, // Bỏ chế độ hash trong URL
             scrollPositionRestoration: 'enabled', // Khôi phục vị trí cuộn khi điều hướng
             anchorScrolling: 'enabled', // Hỗ trợ cuộn đến các phần tử có id (anchor links)
-            onSameUrlNavigation: 'reload' // Tải lại trang khi điều hướng đến cùng một URL
-        })
+            onSameUrlNavigation: 'reload', // Tải lại trang khi điều hướng đến cùng một URL
+            scrollOffset: [0, 50], // Điều chỉnh vị trí cuộn
+        },  ) 
     ],
     exports: [RouterModule]
 })

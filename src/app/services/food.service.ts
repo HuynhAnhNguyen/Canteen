@@ -14,4 +14,9 @@ export class FoodService {
   getAllFoods(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
+
+  getFoodsByPage(page: number) {
+    return this.http.get<{ data: any[] }>('http://13.239.169.8:8080/api/v1/foods?page='+page);
+  }
+  
 }
