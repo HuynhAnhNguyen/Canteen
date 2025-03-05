@@ -22,6 +22,7 @@ export class ActionHistoryComponent implements OnInit {
      listAccount: Account[] = [];
      isShowHistory: boolean = false;
      accountSelected: Account = {};
+     staffNameSelected: string = '';
      listHistory: any[] = [];
    constructor(
          private route: ActivatedRoute,
@@ -57,7 +58,7 @@ export class ActionHistoryComponent implements OnInit {
       async loadData() {
              this.loading = true;
              await this.http
-                 .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/account/findAll', {
+                 .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/account/findAll?role='+this.authService.getRole(), {
                      headers: this.header,
                  }).toPromise()
                  .then(
@@ -89,6 +90,7 @@ export class ActionHistoryComponent implements OnInit {
          async showDetailAccount(object: any) {
           this.loading = true;
           this.accountSelected = object;
+          this.staffNameSelected = object.fullname
           await this.http
                  .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/actionDetail/findByUsername?username='+this.accountSelected.username, {
                      headers: this.header,
