@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FoodService {
-  private apiUrl = 'http://13.239.169.8:8080/api/v1/project/auth/food/findAll';
+  private apiUrl = 'http://13.239.169.8:8080/api/v1/project/auth/food/findAllAvailable';
 
   constructor(private http: HttpClient) {}
 
