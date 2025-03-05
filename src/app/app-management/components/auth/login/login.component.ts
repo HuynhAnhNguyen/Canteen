@@ -37,6 +37,53 @@ export class LoginComponent {
     username: any;
 
     constructor(public layoutService: LayoutService,private messageService: MessageService,private authService:AuthService ,private router: Router,public httpClient: HttpClient, public secureStorageService : SecureStorageService ) { }
+    // async login() {
+    //     this.loading = true;
+    //     await this.httpClient
+    //         .post<any>(environment.backendApiUrl+'/api/v1/project/auth/signin', {
+    //             userName: this.username,
+    //             passWord: this.password,
+    //         })
+    //         .toPromise()
+    //         .then(
+    //             (data) => {
+    //                 if (data.resultCode == '0') {
+    //                     this.authService.setToken(data.data.token);
+    //                     this.authService.setUsername(data.data.username);
+    //                     this.authService.setFullname(data.data.fullname);
+    //                     this.authService.setAccountid(data.data.account_id);
+    //                     this.authService.setCartid(data.data.cart_id);
+    //                     this.authService.setEmail(data.data.email);
+    //                     this.authService.setPhonenumber(data.data.phoneNumber);
+    //                     // console.log(data.data.cart_id);
+
+    //                     this.authService.setRole(data.data.role); // Lưu role vào storage
+    //                     this.messageService.add({ severity: "success", summary: "Đăng nhập thành công" });
+                        
+    //                     // Điều hướng dựa trên role
+    //                     this.router.navigate([this.authService.getRedirectUrl()]);
+
+                        
+    //                 } else
+    //                     this.messageService.add({
+    //                         severity: 'error',
+    //                         summary: "Tài khoản không tồn tại ",
+    //                     });
+    //                     // console.log(data)
+    //             },
+    //             (error) => {
+    //                 this.messageService.add({
+    //                     severity: 'error',
+    //                     summary: 'Tên đăng nhập hoặc mật khẩu không đúng',
+    //                 });
+    //                 console.log(error)
+    //             }
+    //         );
+    //     this.loading = false;
+        
+
+    // }
+
     async login() {
         this.loading = true;
         await this.httpClient

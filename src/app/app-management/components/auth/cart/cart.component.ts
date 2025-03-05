@@ -4,6 +4,7 @@ import { AuthService } from './../../../service/auth.service';
 import { MessageService } from 'primeng/api';
 import { storageKey } from 'src/app/app-constant';
 import { environment } from 'src/environments/environment';
+import { Client } from '@stomp/stompjs';
 
 interface CartItem {
   id: number;
@@ -27,8 +28,78 @@ export class CartComponent {
   cartId: any;
   totalAmount: number = 0;
   userInfo: any = null;
+  stompClient: Client;
 
-  constructor(private http: HttpClient, private authService: AuthService, private messageService: MessageService) { }
+  constructor(private http: HttpClient, private authService: AuthService, private messageService: MessageService) {
+    this.stompClient = new Client({
+      brokerURL: environment.backendApiUrl + '/ws?token=' + this.authService.getToken(),
+      debug: (msg: string) => console.log(msg), // Debug log
+      reconnectDelay: 5000, // Tự động kết nối lại sau 5s nếu mất kết nối
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000
+    });
+
+    this.stompClient.onConnect = (frame) => {
+      console.log('Connected: ' + frame);
+
+      const handleNotification = (message: any) => {
+        let content;
+        try {
+          content = JSON.parse(message.body); // Giải mã JSON nếu có
+        } catch (error) {
+          content = message.body; // Nếu không phải JSON, lấy giá trị trực tiếp
+        }
+
+        console.log("✅ Nội dung thông báo:", content);
+        console.log(message);
+        switch (content) {
+          case 'preparingOrder':
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Đã xác nhận đơn hàng, đơn hàng của bạn đang được chuẩn bị'
+            });
+            break;
+
+          case 'doneOrder':
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Đơn hàng đã hoàn thành'
+            });
+            break;
+
+          case 'cancelOrder':
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Đơn hàng đã hủy'
+            });
+            break;
+
+          default:
+            // this.messageService.add({
+            //   severity: 'error',
+            //   summary: 'Đã có lỗi xảy ra. Vui lòng thử lại ' + message
+            // });
+            console.log(message);
+            break;
+        }
+
+        // Reload lại trang sau khi nhận thông báo
+        setTimeout(() => location.reload(), 1000);
+      };
+
+      // Đăng ký lắng nghe thông báo cá nhân
+      this.stompClient.subscribe('/user/queue/notifications', handleNotification);
+
+      // Đăng ký lắng nghe thông báo chung
+      this.stompClient.subscribe('/topic/public', handleNotification);
+    };
+
+
+    this.stompClient.onDisconnect = () => {
+      console.log('Disconnected!');
+    };
+    this.connect();
+  }
 
   ngOnInit() {
     this.header = new HttpHeaders().set(
@@ -39,6 +110,14 @@ export class CartComponent {
     this.loadCart();
   }
 
+  connect() {
+    this.stompClient.activate(); // Thay vì connect()
+  }
+
+  // Ngắt kết nối
+  disconnect() {
+    this.stompClient.deactivate();
+  }
   // Lấy giỏ hàng từ API
   loadCart() {
     // console.log("From cart " + this.authService.getCartid());
@@ -185,7 +264,7 @@ export class CartComponent {
       return;
     }
 
-    const payload = { 'account_id':accountId,'cart_id': cartId };
+    const payload = { 'account_id': accountId, 'cart_id': cartId };
 
     this.http.post(environment.backendApiUrl + '/api/v1/project/order/create', payload, {
       headers: this.header

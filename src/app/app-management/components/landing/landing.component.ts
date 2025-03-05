@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { FoodService } from 'src/app/services/food.service';
@@ -7,6 +7,9 @@ import { MessageService } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { storageKey } from 'src/app/app-constant';
 import { environment } from 'src/environments/environment';
+import { WebSocketService } from '../../service/websocketService';
+import { Subscription } from 'rxjs';
+import { Client } from '@stomp/stompjs';
 
 @Component({
   selector: 'app-landing',
@@ -281,11 +284,42 @@ import { environment } from 'src/environments/environment';
     // object-fit: cover; /* Giúp ảnh bao phủ toàn bộ banner */
 }
 
+    .notification-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  z-index: 1000;
+}
+
+.notification-container h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.notification-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-container li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.notification-container li:last-child {
+  border-bottom: none;
+}
+
+
     `]
 })
-// export class LandingComponent {
-//     constructor(public layoutService: LayoutService, public router: Router) { }
-// }
 
 export class LandingComponent implements OnInit {
   header: any
@@ -299,7 +333,8 @@ export class LandingComponent implements OnInit {
   showDetailModal: boolean = false; // Điều khiển hiển thị modal
   page: number = 1; // Trang hiện tại
   pageSize: number = 9; // Số món ăn hiển thị trên mỗi trang
-
+  canteenInfo: any;
+  stompClient: Client;
 
   constructor(
     private foodService: FoodService,
@@ -307,12 +342,82 @@ export class LandingComponent implements OnInit {
     public router: Router,
     private authService: AuthService,
     private http: HttpClient,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+  ) {
+    this.stompClient = new Client({
+      brokerURL: environment.backendApiUrl + '/ws?token=' + this.authService.getToken(),
+      debug: (msg: string) => console.log(msg), // Debug log
+      reconnectDelay: 5000, // Tự động kết nối lại sau 5s nếu mất kết nối
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000
+    });
+
+    this.stompClient.onConnect = (frame) => {
+      console.log('Connected: ' + frame);
+
+      const handleNotification = (message: any) => {
+        let content;
+        try {
+          content = JSON.parse(message.body); // Giải mã JSON nếu có
+        } catch (error) {
+          content = message.body; // Nếu không phải JSON, lấy giá trị trực tiếp
+        }
+
+        console.log("✅ Nội dung thông báo:", content);
+        console.log(message);
+        switch (content) {
+          case 'preparingOrder':
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Đã xác nhận đơn hàng, đơn hàng của bạn đang được chuẩn bị'
+            });
+            break;
+
+          case 'doneOrder':
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Đơn hàng đã hoàn thành'
+            });
+            break;
+
+          case 'cancelOrder':
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Đơn hàng đã hủy'
+            });
+            break;
+
+          default:
+            // this.messageService.add({
+            //   severity: 'error',
+            //   summary: 'Đã có lỗi xảy ra. Vui lòng thử lại'
+            // });
+            break;
+        }
+
+        // Reload lại trang sau khi nhận thông báo
+        setTimeout(() => location.reload(), 1000);
+      };
+
+      // Đăng ký lắng nghe thông báo cá nhân
+      this.stompClient.subscribe('/user/queue/notifications', handleNotification);
+
+      // Đăng ký lắng nghe thông báo chung
+      this.stompClient.subscribe('/topic/public', handleNotification);
+    };
+
+
+    this.stompClient.onDisconnect = () => {
+      console.log('Disconnected!');
+    };
+    this.connect();
+  }
 
   ngOnInit() {
     this.loadFoods();
     this.checkLoginStatus();
+    this.getCanteenInfo();
+
     this.header = new HttpHeaders().set(
       storageKey.AUTHORIZATION,
       this.authService.getToken()
@@ -338,7 +443,7 @@ export class LandingComponent implements OnInit {
   onPageChange(pageSize: number) {
     this.page = pageSize;
   }
-  
+
 
   logout() {
     this.authService.logout();
@@ -358,10 +463,10 @@ export class LandingComponent implements OnInit {
     );
   }
 
-// Khi cuộn xuống gọi hàm này để tải thêm
-loadMoreFoods() {
-  this.loadFoods();
-}
+  // Khi cuộn xuống gọi hàm này để tải thêm
+  loadMoreFoods() {
+    this.loadFoods();
+  }
 
   viewDetails(food: any) {
     this.selectedFood = food;
@@ -388,7 +493,7 @@ loadMoreFoods() {
       cartId: 0 // Nếu giỏ hàng chưa có, backend sẽ tự tạo
     };
 
-    this.http.post(environment.backendApiUrl +'/api/v1/project/cartItem/add', cartItem, {
+    this.http.post(environment.backendApiUrl + '/api/v1/project/cartItem/add', cartItem, {
       headers: this.header
     }).subscribe(
       (response) => {
@@ -404,5 +509,25 @@ loadMoreFoods() {
 
   navigateToLanding() {
     this.router.navigate(['/pages/landing'], { fragment: 'home' });
+  }
+
+  getCanteenInfo(): void {
+    this.http.get(environment.backendApiUrl + '/api/v1/project/auth/canteenInfo/get').subscribe(
+      (data) => {
+        this.canteenInfo = data;
+        console.log('Canteen Info:', this.canteenInfo);
+      },
+      (error) => {
+        console.error('Error fetching canteen info:', error);
+      }
+    );
+  }
+  connect() {
+    this.stompClient.activate(); // Thay vì connect()
+  }
+
+  // Ngắt kết nối
+  disconnect() {
+    this.stompClient.deactivate();
   }
 }

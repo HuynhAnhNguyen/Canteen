@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Client } from '@stomp/stompjs';
+import { Client, Message } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
   private stompClient: Client;
+  private connectionSubject = new Subject<void>();
 
   constructor(private authService:AuthService) {
     this.stompClient = new Client({
@@ -25,10 +27,10 @@ export class WebSocketService {
     this.stompClient.onConnect = (frame) => {
       console.log('Connected: ' + frame);
       this.stompClient.subscribe('/user/queue/notifications', message => {
-        console.log('📩 Thông báo cá nhân:', message.body);
+        console.log('Thông báo cá nhân:', message.body);
       });
       this.stompClient.subscribe('/topic/public', message => {
-        console.log('📩 Thông báo chung:', message.body);
+        console.log('Thông báo chung:', message.body);
       });
     };
 
@@ -47,10 +49,24 @@ export class WebSocketService {
     this.stompClient.deactivate();
   }
 
+  // ✅ Đợi WebSocket kết nối xong
+  onConnected(): Observable<void> {
+    return this.connectionSubject.asObservable();
+  }
+  
   // Gửi tin nhắn qua WebSocket
   sendMessage(destination: string, body: any) {
     if (this.stompClient.connected) {
       this.stompClient.publish({ destination, body: JSON.stringify(body) });
     }
+  }
+
+  // ✅ Thêm phương thức để đăng ký lắng nghe WebSocket mà không cần truy cập trực tiếp `stompClient`
+  subscribeToTopic(topic: string): Observable<string> {
+    return new Observable(observer => {
+      this.stompClient.subscribe(topic, (message: Message) => {
+        observer.next(message.body);
+      });
+    });
   }
 }

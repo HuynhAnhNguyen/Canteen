@@ -15,6 +15,9 @@ import { OrderHistoryComponent } from './app-management/components/auth/order-hi
 import { AuthGuardAdmin } from './app-management/service/authGuard-Admin';
 import { AuthGuardStaff } from './app-management/service/authGuard-Staff';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CommonModule } from '@angular/common';
+import { IntroduceComponent } from './app-management/components/introduce/introduce.component';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, OrderHistoryComponent,
+        AppComponent, NotfoundComponent, 
 
     ],
     imports: [
@@ -30,7 +33,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         AppLayoutModule,
         BrowserModule,
         NgxPaginationModule,
+        CommonModule,
         HttpClientModule,
+        IntroduceComponent,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

@@ -6,6 +6,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
+// import { IntroduceComponent } from '../introduce/introduce.component';
 
 @NgModule({
     imports: [RouterModule.forChild([
@@ -29,6 +30,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
         { path: 'kich-hoat-tai-khoan', component: ActiveAccountComponent},
         { path: 'gio-hang', component: CartComponent},
         { path: 'lich-su', component: OrderHistoryComponent},
+        // { path: 'gioi-thieu', component: IntroduceComponent},
 
     ])],
     exports: [RouterModule]

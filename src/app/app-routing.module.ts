@@ -31,7 +31,7 @@ import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './app-management/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AuthGuard } from './app-management/service/auth-guard';
-
+import { IntroduceComponent } from './app-management/components/introduce/introduce.component';
 
 // Định nghĩa danh sách tuyến đường (routes)
 const routes: Routes = [
@@ -71,6 +71,11 @@ const routes: Routes = [
     { 
         path: '', 
         loadChildren: () => import('./app-management/components/landing/landing.module').then(m => m.LandingModule) 
+    },
+
+    { 
+        path: 'gioi-thieu', 
+        component: IntroduceComponent
     },
     
     // Trang lỗi 404

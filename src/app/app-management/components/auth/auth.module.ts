@@ -13,6 +13,7 @@ import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
 import { PagesModule } from '../pages/pages.module';
 import { CartComponent } from './cart/cart.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import { CartComponent } from './cart/cart.component';
         ResetPasswordComponent,
         SignUpComponent,
         ActiveAccountComponent,
-        CartComponent
+        CartComponent,
+        OrderHistoryComponent
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA

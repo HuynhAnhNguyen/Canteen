@@ -20,7 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
         PanelModule,
         ButtonModule,
         ToastModule,
-        NgxPaginationModule
+        NgxPaginationModule,
     ],
     declarations: [LandingComponent]
 })
