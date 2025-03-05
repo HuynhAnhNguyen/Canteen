@@ -120,7 +120,7 @@ export class ManageOrderComponent implements OnInit {
                                     summary: data?.message,
                                 });
                             }
-                            console.log(data)
+                            // console.log(data)
                         },
                         (error) => {
                             this.messageService.add({
@@ -145,7 +145,7 @@ export class ManageOrderComponent implements OnInit {
                                     summary: data?.message,
                                 });
                             }
-                            console.log(data)
+                            // console.log(data)
                         },
                         (error) => {
                             this.messageService.add({
@@ -174,7 +174,7 @@ export class ManageOrderComponent implements OnInit {
                                     summary: data?.message,
                                 });
                             }
-                            console.log(data)
+                            // console.log(data)
                         },
                         (error) => {
                             this.messageService.add({
@@ -207,7 +207,7 @@ export class ManageOrderComponent implements OnInit {
                       summary: data?.message,
                   });
               }
-              console.log(data)
+            //   console.log(data)
           },
           (error) => {
               this.messageService.add({
@@ -239,7 +239,7 @@ export class ManageOrderComponent implements OnInit {
                       summary: data?.message,
                   });
               }
-              console.log(data)
+            //   console.log(data)
           },
           (error) => {
               this.messageService.add({
@@ -261,6 +261,18 @@ export class ManageOrderComponent implements OnInit {
 
     }
 
+    confirmReject() {
+        this.confirmationService.confirm({
+          message: 'Xác nhận là khách hàng không nhận hàng?',
+          header: 'Xác nhận',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            this.rejectOrder();
+          }
+      });
+  
+      }
+
     async cancelOrder() {
       await this.http
       .put<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/cancel?orderId='+this.orderSelected.id, null,{
@@ -278,7 +290,7 @@ export class ManageOrderComponent implements OnInit {
                       summary: data?.message,
                   });
               }
-              console.log(data)
+            //   console.log(data)
           },
           (error) => {
               this.messageService.add({
@@ -288,4 +300,37 @@ export class ManageOrderComponent implements OnInit {
           }
       );
     }
+
+    async rejectOrder() {
+        await this.http
+        .put<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/rejected?orderId='+this.orderSelected.id, null,{
+            headers: this.header,
+        }).toPromise()
+        .then(
+            (data) => {
+                if (data?.resultCode == 0) {
+                    // this.loadData();
+                    this.isShowOrderDetail = false;
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Xác nhận thành công',
+                    });
+                    this.loadData()
+                    // console.log(this.listAccount);
+                } else {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: data?.message,
+                    });
+                }
+                console.log(data)
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error occur',
+                });
+            }
+        );
+      }
 }
