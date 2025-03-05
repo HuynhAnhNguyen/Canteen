@@ -9,6 +9,7 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Dialog, DialogModule } from 'primeng/dialog';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
         ButtonModule,
         ToastModule,
         NgxPaginationModule,
+        DialogModule,
     ],
-    declarations: [LandingComponent]
+    declarations: [LandingComponent],
 })
-export class LandingModule { }
+export class LandingModule {}
