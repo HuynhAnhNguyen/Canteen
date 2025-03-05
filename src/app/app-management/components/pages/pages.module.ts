@@ -21,6 +21,7 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
 import { TagModule } from 'primeng/tag';
 import { ActionHistoryComponent } from './action-history/action-history.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { ManageOrderComponent } from './manage-order/manage-order.component';
         DropdownModule,
         PasswordModule,
         ProgressSpinnerModule,
-        TagModule
+        TagModule,
+        CheckboxModule
     ],
     exports: [LoadingComponent]
 })

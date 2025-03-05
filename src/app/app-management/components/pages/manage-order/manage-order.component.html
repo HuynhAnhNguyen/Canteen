@@ -5,6 +5,10 @@
         <app-loading *ngIf="loading"></app-loading>
         <div class="text-center col-12" style="font-weight: bold; font-size: large;">Danh sách đơn hàng</div>
         <div class="col-12">
+            <span style="display: block">All</span>
+            <p-checkbox [(ngModel)]="loadAllOrder" (onChange)="loadData()" [binary]="true"></p-checkbox>
+        </div>
+        <div class="col-12">
             <p-table #dt1 [value]="listOrder" 
                 [globalFilterFields]="['id','code','name','status','email']" responsiveLayout="scroll" [rows]="10" [rows]="10"
                 [paginator]="true" [rowsPerPageOptions]="[20,30,50]" [showCurrentPageReport]="true"
@@ -80,8 +84,10 @@
                         <!-- <td>{{obj.code}}</td> -->
                         <td>{{obj.totalPrice  | number:'1.0-0'}} VND</td>
                         <td>
-                            <p-tag value="Chưa xác nhận" *ngIf = "obj.status == 'unconfirmed'" severity="error"></p-tag>
-                            <p-tag value="Đang chuẩn bị" *ngIf = "obj.status=='preparing'" severity="success"></p-tag>
+                            <p-tag value="Chưa xác nhận" *ngIf = "obj.status == 'unconfirmed'" severity="danger"></p-tag>
+                            <p-tag value="Đang chuẩn bị" *ngIf = "obj.status=='preparing'"></p-tag>
+                            <p-tag value="Đã hủy" *ngIf = "obj.status=='cancel'" severity="danger"></p-tag>
+                            <p-tag value="Đã hoàn thành" *ngIf = "obj.status=='done'" severity="success"></p-tag>
                         </td>
                         <td>{{obj.code}}</td>
                         <td> {{obj.orderTime}}</td>
