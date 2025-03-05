@@ -396,7 +396,8 @@ export class LandingComponent implements OnInit {
         }
 
         // Reload lại trang sau khi nhận thông báo
-        setTimeout(() => location.reload(), 1000);
+        // setTimeout(() => location.reload(), 1000);
+        this.loadFoods();
       };
 
       // Đăng ký lắng nghe thông báo cá nhân
