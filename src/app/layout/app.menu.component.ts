@@ -29,6 +29,11 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/pages'],
                     items: [
                         {
+                            label: 'Quản lý thực đơn',
+                            icon: 'pi pi-bars',
+                            routerLink: ['/pages/manageMenu']
+                        },
+                        {
                             label: 'Quản lý đơn hàng',
                             icon: 'pi pi-briefcase',
                             routerLink: ['/pages/manageOrder']
@@ -66,6 +71,11 @@ export class AppMenuComponent implements OnInit {
                     icon: 'pi pi-user',
                     routerLink: ['/pages'],
                     items: [
+                        {
+                            label: 'Quản lý thực đơn',
+                            icon: 'pi pi-bars',
+                            routerLink: ['/pages/manageMenu']
+                        },
                         {
                             label: 'Quản lý đơn hàng',
                             icon: 'pi pi-briefcase',
