@@ -10,16 +10,11 @@
                     alt="Logo"
                     height="50"
                     class="mr-0 lg:mr-2"
-<<<<<<< HEAD
                 />
                 <span
                     *ngIf="canteenInfo"
                     class="text-900 font-medium text-2xl line-height-3 mr-8"
                     >{{ canteenInfo.data?.name }}</span
-=======
-                /><span class="text-900 font-medium text-2xl line-height-3 mr-8"
-                    >Fooddy</span
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                 >
             </a>
             <a
@@ -77,22 +72,13 @@
 
                     <li>
                         <a
-<<<<<<< HEAD
                             routerLink="/gioi-thieu"
-=======
-                            (click)="
-                                router.navigate(['/pages/404'], {
-                                    fragment: 'highlights'
-                                })
-                            "
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                             pRipple
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3"
                         >
                             <span>Giới thiệu</span>
                         </a>
                     </li>
-<<<<<<< HEAD
                     <a
                         *ngIf="isAdmin == 'ROLE_ADMIN'"
                         (click)="redirectDashboard()"
@@ -118,15 +104,6 @@
                           </li>
                         </ul>
                       </div> -->
-=======
-                    <li>
-                        <a
-                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3"
-                        >
-                            <span>Admin</span>
-                        </a>
-                    </li>
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                 </ul>
                 <div
                     class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0"
@@ -211,19 +188,13 @@
         </div>
 
         <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
-<<<<<<< HEAD
             <div class="grid justify-content-center" id="datmonan">
                 <div class="col-12 text-center mt-8 mb-4">
-=======
-            <div class="grid justify-content-center">
-                <div class="col-12 text-center mt-8 mb-4" id="datmonan">
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                     <h2 class="text-900 font-normal mb-2">
                         <b>Danh sách các món ăn</b>
                     </h2>
                 </div>
 
-<<<<<<< HEAD
                 <div class="row">
                     <div
                         class="col-md-4 mb-4"
@@ -236,36 +207,17 @@
                                       }
                         "
                     >
-=======
-                <div class="row-product-card">
-                    <div class="col-md-4 mb-4" *ngFor="let food of foods">
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                         <div class="card">
                             <img
                                 [src]="
                                     'http://13.239.169.8:8080/api/v1/project/auth/' +
                                     food.imageUrl
                                 "
-<<<<<<< HEAD
                                 style="width: 100%; height: 200px"
                                 class="card-img-top"
                                 alt="Food Image"
                             />
                             <div class="card-body text-center">
-=======
-                                style="
-                                    width: 100%;
-                                    height: 200px;
-                                    object-fit: cover;
-                                "
-                                class="card-img-top"
-                                alt="Food Image"
-                            />
-                            <div
-                                class="card-body text-center"
-                                style="margin: 1rem"
-                            >
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                                 <h5 class="card-title">{{ food.name }}</h5>
                                 <p class="card-text text-danger fw-bold">
                                     {{ food.price | number : "1.0-2" }} VND
@@ -325,30 +277,19 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
                 <!-- Phân trang -->
                 <pagination-controls
                     (pageChange)="onPageChange($event)"
                 ></pagination-controls>
-=======
-                <!-- Hiển thị loading khi đang tải thêm sản phẩm -->
-                <div *ngIf="isLoading" class="text-center mt-4">
-                    <p>Đang tải thêm món ăn...</p>
-                </div>
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
             </div>
         </div>
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
             <div class="grid justify-content-between">
-<<<<<<< HEAD
                 <div
                     *ngIf="canteenInfo"
                     class="col-12 md:col-5"
                     style="margin-top: -1.5rem"
                 >
-=======
-                <div class="col-12 md:col-2" style="margin-top: -1.5rem">
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                     <a
                         href="#"
                         class="flex flex-wrap align-items-center justify-content-center md:justify-content-start md:mb-0 mb-3 cursor-pointer"
@@ -360,19 +301,12 @@
                             height="50"
                             class="mr-2"
                         />
-<<<<<<< HEAD
                         <h4 class="font-medium text-3xl text-900">
                             {{ canteenInfo.data?.name }}
                         </h4>
                     </a>
                     <p>Thời gian mở cửa: {{ canteenInfo.data?.openTime }}</p>
                     <p>Địa chỉ: {{ canteenInfo.data?.adress }}</p>
-=======
-                        <h4 class="font-medium text-3xl text-900">Fooddy</h4>
-                    </a>
-                    <p>Thời gian mở cửa:</p>
-                    <p>Địa chỉ: Hà Nội, Việt Nam</p>
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
                 </div>
 
                 <div class="col-12 md:col-10 lg:col-7">
@@ -425,7 +359,6 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
 
 <!-- hiển thị thông tin của hàng -->
 
@@ -549,5 +482,3 @@
         </ng-template>
     </p-dialog>
 </div>
-=======
->>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
