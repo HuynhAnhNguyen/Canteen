@@ -99,6 +99,7 @@ export class ActionHistoryComponent implements OnInit {
                      (data) => {
                          if (data?.resultCode == 0) {
                              this.listHistory = data.data;
+                             this.listHistory = this.listHistory.sort((a, b) => new Date(b.timeCreate).getTime() - new Date(a.timeCreate).getTime());
                              // console.log(this.listAccount);
                          } else {
                              this.messageService.add({
