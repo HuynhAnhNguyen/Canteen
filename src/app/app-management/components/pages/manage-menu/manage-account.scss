@@ -104,3 +104,49 @@ th {
   }
 }
 
+/* Container của ô tải file */
+.upload-container {
+  position: relative;
+  display: inline-block;
+}
+
+.upload-container input[type="file"] {
+  opacity: 0;
+  width: 150px;
+  height: 40px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.upload-container label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #084cdf;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.upload-container label:hover {
+  background-color: #0d45a5;
+}
+
+/* Hiển thị ảnh đã chọn */
+.image-preview {
+  margin-top: 10px;
+  width: 120px;
+  height: 120px;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

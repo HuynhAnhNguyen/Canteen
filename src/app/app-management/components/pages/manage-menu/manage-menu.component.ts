@@ -56,7 +56,6 @@ export class ManageMenuComponent implements OnInit {
             storageKey.AUTHORIZATION,
             this.authService.getToken()
         );
-        // this.getAllCategories();
         this.loadData();
     }
 
@@ -278,10 +277,13 @@ export class ManageMenuComponent implements OnInit {
     this.http.put<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/food/update', foodData,{ headers: this.header }).subscribe({
         next: (response) => {
             console.log('Cập nhật thành công:', response);
+            this.loadData();
+            this.isShowFoodDetail = false;
             this.messageService.add({ severity: 'success', summary: 'Cập nhật thành công!' });
         },
         error: (err) => {
             console.error('Lỗi cập nhật:', err);
+            this.loadData();
             this.messageService.add({ severity: 'error', summary: 'Cập nhật thất bại!' });
         }
     });
