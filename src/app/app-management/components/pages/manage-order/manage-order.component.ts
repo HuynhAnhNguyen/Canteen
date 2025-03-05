@@ -27,6 +27,7 @@ export class ManageOrderComponent implements OnInit {
 
     private stompClient: Client;
     isShowOrderDetail: boolean = false;
+    loadAllOrder: boolean =  false;
 
 
 
@@ -102,8 +103,34 @@ export class ManageOrderComponent implements OnInit {
       }
 
       async loadData() {
-                // this.loading = true;
-                await this.http
+        if(this.loadAllOrder) {
+          await this.http
+                    .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getAllOrder', {
+                        headers: this.header,
+                    }).toPromise()
+                    .then(
+                        (data) => {
+                            if (data?.resultCode == 0) {
+                                this.listOrder = data.data;
+                                this.listOrder = this.listOrder.sort((a, b) => b.id - a.id)
+                                // console.log(this.listAccount);
+                            } else {
+                                this.messageService.add({
+                                    severity: 'error',
+                                    summary: data?.message,
+                                });
+                            }
+                            console.log(data)
+                        },
+                        (error) => {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error occur',
+                            });
+                        }
+                    );
+        } else {
+          await this.http
                     .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getOrderPreparingOrUnconfirmed', {
                         headers: this.header,
                     }).toPromise()
@@ -127,7 +154,7 @@ export class ManageOrderComponent implements OnInit {
                             });
                         }
                     );
-                    // this.loading = false;
+        }
       }
       async showOrderDetail(obj: any) {
         this.orderSelected = obj;
