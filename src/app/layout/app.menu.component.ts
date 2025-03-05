@@ -29,12 +29,17 @@ export class AppMenuComponent implements OnInit {
                     routerLink: ['/pages'],
                     items: [
                         {
+                            label: 'Quản lý đơn hàng',
+                            icon: 'pi pi-briefcase',
+                            routerLink: ['/pages/manageOrder']
+                        },
+                        {
                             label: 'Quản lý tài khoản',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-user',
                             routerLink: ['/pages/manageAccount']
                         }, {
                             label: 'Lịch sử hoạt động',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-history',
                             routerLink: ['/pages/action']
                         },
                         {
@@ -58,12 +63,17 @@ export class AppMenuComponent implements OnInit {
               
                 {
                     label: 'Nhân viên',
-                    icon: 'pi pi-fw pi-briefcase',
+                    icon: 'pi pi-user',
                     routerLink: ['/pages'],
                     items: [
                         {
+                            label: 'Quản lý đơn hàng',
+                            icon: 'pi pi-briefcase',
+                            routerLink: ['/pages/manageOrder']
+                        },
+                        {
                             label: 'Quản lý tài khoản',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-user',
                             routerLink: ['/pages/manageAccount']
                         },
                        
