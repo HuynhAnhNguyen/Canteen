@@ -62,7 +62,8 @@ export class DashboardComponent implements OnInit {
             .then(
                 (data) => {
                     if (data?.resultCode == 0) {
-                        this.totalRevenueToday = data.data;
+
+                        this.totalRevenueToday = data.data == null?0:data.data;
                         // console.log(this.listAccount);
                     } else {
                         this.messageService.add({

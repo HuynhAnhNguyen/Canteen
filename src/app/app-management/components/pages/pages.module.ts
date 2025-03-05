@@ -20,11 +20,14 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
 import { TagModule } from 'primeng/tag';
 import { ActionHistoryComponent } from './action-history/action-history.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+
 @NgModule({
     declarations: [
       LoadingComponent,
       ManageAccountComponent,
-      ActionHistoryComponent
+      ActionHistoryComponent,
+      ManageOrderComponent
   ],
     imports: [
         CommonModule,
