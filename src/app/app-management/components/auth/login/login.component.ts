@@ -111,10 +111,15 @@ export class LoginComponent {
                         this.router.navigate([this.authService.getRedirectUrl()]);
 
                         
-                    } else
+                    } else if(data.resultCode == '-1'){
                         this.messageService.add({
                             severity: 'error',
-                            summary: "Tài khoản không tồn tại ",
+                            summary: "Sai mật khẩu. Vui lòng thử lại!",
+                        });
+                    }else
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: "Lỗi. Vui lòng thử lại!",
                         });
                         // console.log(data)
                 },

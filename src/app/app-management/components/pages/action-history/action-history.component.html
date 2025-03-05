@@ -104,6 +104,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <p-dialog
     [(visible)]="isShowHistory"
     [maximizable]="true"
@@ -117,6 +118,14 @@
     [style]="{ width: '60vw', height: '30vw' }"
     [modal]="true"
 >
+=======
+
+<p-dialog [(visible)]="isShowHistory" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Lịch sử hoạt động"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '45vw'}"
+    [modal]="true">
+
+>>>>>>> 4592263ce1a3c7b61708c7798266f298d8a9c510
     <ng-template pTemplate="content">
         <div class="grid">
             <div class="col-12">
@@ -175,12 +184,13 @@
                         <td>{{staffNameSelected}}</td>
                         <!-- <td>{{obj.code}}</td> -->
                         <td>{{obj.accountUserName}}</td>
-                        <td>{{obj.totalPrice}}</td>
+                        <td>{{obj.totalPrice| number:'1.0-0'}} VND</td>
                         <td> {{obj.timeCreate}}</td>
                         <td>
                             <p-tag value="Hoàn thành đơn hàng" *ngIf = "obj.actionName == 'done'" severity="success"></p-tag>
                             <p-tag value="Hủy đơn hàng" *ngIf = "obj.actionName == 'cancel'" severity="danger"></p-tag>
                             <p-tag value="Xác nhận đơn hàng" *ngIf = "obj.actionName == 'confirm'" severity="info" ></p-tag>
+                            <p-tag value="Từ chối đơn hàng" *ngIf = "obj.actionName == 'rejected'" severity="danger"></p-tag>
                         </td>
                        
                     </tr>

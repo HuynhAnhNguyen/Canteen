@@ -54,6 +54,7 @@ export class ManageAccountComponent implements OnInit {
             this.authService.getToken()
         );
         this.role = this.authService.getRole();
+        console.log(this.role);
         this.loadData();
     }
     applyFilterGlobal($event: any, stringVal: any) {

@@ -54,6 +54,7 @@ export class ActionHistoryComponent implements OnInit {
         );
     }
 
+<<<<<<< HEAD
     async loadData() {
         this.loading = true;
         await this.http
@@ -130,4 +131,38 @@ export class ActionHistoryComponent implements OnInit {
         this.isShowHistory = true;
         this.loading = false;
     }
+=======
+         async showDetailAccount(object: any) {
+          this.loading = true;
+          this.accountSelected = object;
+          this.staffNameSelected = object.fullname
+          await this.http
+                 .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/actionDetail/findByUsername?username='+this.accountSelected.username, {
+                     headers: this.header,
+                 }).toPromise()
+                 .then(
+                     (data) => {
+                         if (data?.resultCode == 0) {
+                             this.listHistory = data.data;
+                             this.listHistory = this.listHistory.sort((a, b) => new Date(b.timeCreate).getTime() - new Date(a.timeCreate).getTime());
+                             // console.log(this.listAccount);
+                         } else {
+                             this.messageService.add({
+                                 severity: 'error',
+                                 summary: data?.message,
+                             });
+                         }
+                         console.log(data)
+                     },
+                     (error) => {
+                         this.messageService.add({
+                             severity: 'error',
+                             summary: 'Error occur',
+                         });
+                     }
+                 );
+          this.isShowHistory = true;
+          this.loading = false;
+      }         
+>>>>>>> 4592263ce1a3c7b61708c7798266f298d8a9c510
 }

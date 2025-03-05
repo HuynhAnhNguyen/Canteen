@@ -5,6 +5,7 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
 import { AuthGuardAdmin } from '../../service/authGuard-Admin';
 import { ActionHistoryComponent } from './action-history/action-history.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 
 @NgModule({
     imports: [RouterModule.forChild([
@@ -12,6 +13,7 @@ import { ManageOrderComponent } from './manage-order/manage-order.component';
         { path: 'manageAccount', component: ManageAccountComponent, canActivate:[AuthGuard]},
         { path: 'action', component: ActionHistoryComponent, canActivate:[AuthGuard,AuthGuardAdmin]},
         { path: 'manageOrder', component: ManageOrderComponent, canActivate:[AuthGuard]},
+        { path: 'manageMenu', component: ManageMenuComponent, canActivate:[AuthGuard]},
     ])],
     exports: [RouterModule]
 })

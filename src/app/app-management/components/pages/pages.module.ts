@@ -21,6 +21,7 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
 import { TagModule } from 'primeng/tag';
 import { ActionHistoryComponent } from './action-history/action-history.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CheckboxModule } from 'primeng/checkbox';
       LoadingComponent,
       ManageAccountComponent,
       ActionHistoryComponent,
-      ManageOrderComponent
+      ManageOrderComponent,
+      ManageMenuComponent,
   ],
     imports: [
         CommonModule,
