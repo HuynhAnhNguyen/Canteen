@@ -1,14 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Product } from '../../api/product';
-// import { ProductService } from '../../service/product.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import {MessageService} from 'primeng/api';
-import { Client, Message, Stomp } from '@stomp/stompjs'
 import { WebSocketService } from '../../service/websocketService';
 import { AuthService } from '../../service/auth.service';
-import * as SockJS from 'sockjs-client';
 import { environment } from 'src/environments/environment';
 import { ResponseMessage } from '../../Model/ResponsMessage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -50,6 +44,7 @@ export class DashboardComponent implements OnInit {
                     this.authService.getToken()
                 );
         this.loadData();
+
        
     }
 
