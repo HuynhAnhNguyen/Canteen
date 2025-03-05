@@ -11,14 +11,14 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-action-history',
-  templateUrl: './action-history.component.html'
+    selector: 'app-action-history',
+    templateUrl: './action-history.component.html',
 })
 export class ActionHistoryComponent implements OnInit {
-
-   @ViewChild('dt1') dt1: Table | undefined;
-   @ViewChild('dt2') dt2: Table | undefined;
+    @ViewChild('dt1') dt1: Table | undefined;
+    @ViewChild('dt2') dt2: Table | undefined;
     loading: boolean = false;
+<<<<<<< HEAD
      listAccount: Account[] = [];
      isShowHistory: boolean = false;
      accountSelected: Account = {};
@@ -118,5 +118,114 @@ export class ActionHistoryComponent implements OnInit {
           this.isShowHistory = true;
           this.loading = false;
       }         
-}
+=======
+    listAccount: Account[] = [];
+    isShowHistory: boolean = false;
+    accountSelected: Account = {};
+    listHistory: any[] = [];
+    constructor(
+        private route: ActivatedRoute,
+        public layoutService: LayoutService,
+        public router: Router,
+        private messageService: MessageService,
+        private http: HttpClient,
+        private authService: AuthService,
+        private confirmationService: ConfirmationService
+    ) {}
+    header: any;
 
+    ngOnInit(): void {
+        this.header = new HttpHeaders().set(
+            storageKey.AUTHORIZATION,
+            this.authService.getToken()
+        );
+        this.loadData();
+    }
+    applyFilterGlobal($event: any, stringVal: any) {
+        this.dt1!.filterGlobal(
+            ($event.target as HTMLInputElement).value,
+            stringVal
+        );
+    }
+    applyFilterGlobal2($event: any, stringVal: any) {
+        this.dt2!.filterGlobal(
+            ($event.target as HTMLInputElement).value,
+            stringVal
+        );
+    }
+
+    async loadData() {
+        this.loading = true;
+        await this.http
+            .get<ResponseMessage>(
+                environment.backendApiUrl + '/api/v1/project/account/findAll',
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.listAccount = data.data;
+                        this.listAccount = this.listAccount.filter(
+                            (account) => account.role !== 'ROLE_USER'
+                        );
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data);
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+
+        this.loading = false;
+    }
+
+    async showDetailAccount(object: any) {
+        this.loading = true;
+        this.accountSelected = object;
+        await this.http
+            .get<ResponseMessage>(
+                environment.backendApiUrl +
+                    '/api/v1/project/actionDetail/findByUsername?username=' +
+                    this.accountSelected.username,
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.listHistory = data.data;
+                        // console.log(this.listAccount);
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                    console.log(data);
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+        this.isShowHistory = true;
+        this.loading = false;
+    }
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
+}

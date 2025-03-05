@@ -159,6 +159,7 @@ import { Client } from '@stomp/stompjs';
                 }
             }
 
+<<<<<<< HEAD
             .banner-container {
                 // padding: 91px;
                 width: 100%;
@@ -173,6 +174,79 @@ import { Client } from '@stomp/stompjs';
                 // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
             }
 
+            .cta-banner {
+                background-color: hsl(0, 0%, 100%);
+                border-radius: 0.75em;
+                box-shadow: 0 0 0 1px hsla(230, 13%, 9%, 0.05),
+                    0 0.3px 0.4px hsla(230, 13%, 9%, 0.02),
+                    0 0.9px 1.5px hsla(230, 13%, 9%, 0.045),
+                    0 3.5px 6px hsla(230, 13%, 9%, 0.09);
+                overflow: hidden;
+            }
+
+            .cta-banner__grid {
+                // display : grid;
+                // align-items: center;
+                // gap: 1.5rem;
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
+                align-content: center;
+                flex-direction: row;
+            }
+
+            .cta-banner__grid > * {
+                min-width: 0;
+            }
+
+            .cta-banner__content {
+                text-align: center;
+                display: grid;
+                gap: 0.75rem;
+                min-width: 30% !important;
+            }
+
+            .cd-padding-sm {
+                padding: 1.5rem;
+            }
+
+            .cd-radius-md {
+                border-radius: 0.375em;
+            }
+
+            /* From Uiverse.io by shah1345 */
+            .button2 {
+                display: inline-block;
+                transition: all 0.2s ease-in;
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                color: #090909;
+                padding: 0.7em 1.7em;
+                cursor: pointer;
+                font-size: 18px;
+                border-radius: 0.5em;
+                background: #e8e8e8;
+                border: 1px solid #e8e8e8;
+                box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+            }
+
+            .button2:active {
+                color: #666;
+                box-shadow: inset 4px 4px 12px #c5c5c5,
+                    inset -4px -4px 12px #ffffff;
+            }
+
+            .button2:before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%) scaleY(1) scaleX(1.25);
+                top: 100%;
+                width: 140%;
+                height: 180%;
+                background-color: rgba(0, 0, 0, 0.05);
+=======
             .cta-banner {
                 background-color: hsl(0, 0%, 100%);
                 border-radius: 0.75em;
@@ -260,6 +334,23 @@ import { Client } from '@stomp/stompjs';
                 width: 160%;
                 height: 190%;
                 background-color: #009087;
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
+                border-radius: 50%;
+                display: block;
+                transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+                z-index: -1;
+            }
+
+<<<<<<< HEAD
+            .button2:after {
+                content: '';
+                position: absolute;
+                left: 55%;
+                transform: translateX(-50%) scaleY(1) scaleX(1.45);
+                top: 180%;
+                width: 160%;
+                height: 190%;
+                background-color: #009087;
                 border-radius: 50%;
                 display: block;
                 transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
@@ -273,10 +364,26 @@ import { Client } from '@stomp/stompjs';
 
             .button2:hover:before {
                 top: -35%;
+=======
+            .button2:hover {
+                color: #ffffff;
+                border: 1px solid #009087;
+            }
+
+            .button2:hover:before {
+                top: -35%;
                 background-color: #009087;
                 transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
             }
 
+            .button2:hover:after {
+                top: -45%;
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
+                background-color: #009087;
+                transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+            }
+
+<<<<<<< HEAD
             .button2:hover:after {
                 top: -45%;
                 background-color: #009087;
@@ -324,10 +431,27 @@ import { Client } from '@stomp/stompjs';
 
             .notification-container li:last-child {
                 border-bottom: none;
+=======
+            .cta-banner__img {
+                width: 100%;
+            }
+
+            .row-product-card {
+                --bs-gutter-x: -0.5rem;
+                --bs-gutter-y: 0;
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: calc(-1 * var(--bs-gutter-y));
+                margin-right: calc(-0.5 * var(--bs-gutter-x));
+                margin-left: calc(-0.5 * var(--bs-gutter-x));
+                justify-content: space-around;
+                align-items: stretch;
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
             }
         `,
     ],
 })
+<<<<<<< HEAD
 export class LandingComponent implements OnInit {
     header: any;
     isLoggedIn: boolean = false;
@@ -335,6 +459,14 @@ export class LandingComponent implements OnInit {
     showInfoShop: boolean = false;
     loading: boolean = false;
     infoShop: any;
+=======
+// export class LandingComponent {
+//     constructor(public layoutService: LayoutService, public router: Router) { }
+// }
+export class LandingComponent implements OnInit {
+    header: any;
+    isLoggedIn: boolean = false;
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
     fullname: string = '';
     foods: any[] = []; // Danh sách món ăn
     accountId: string = '';
@@ -342,10 +474,15 @@ export class LandingComponent implements OnInit {
     phonenumber: string = '';
     selectedFood: any = null;
     showDetailModal: boolean = false; // Điều khiển hiển thị modal
+<<<<<<< HEAD
     page: number = 1; // Trang hiện tại
     pageSize: number = 9; // Số món ăn hiển thị trên mỗi trang
     canteenInfo: any;
     stompClient: Client;
+=======
+    page: number = 1;
+    isLoading: boolean = false;
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
 
     constructor(
         private foodService: FoodService,
@@ -354,6 +491,7 @@ export class LandingComponent implements OnInit {
         private authService: AuthService,
         private http: HttpClient,
         private messageService: MessageService
+<<<<<<< HEAD
     ) {
         this.stompClient = new Client({
             brokerURL:
@@ -508,6 +646,45 @@ export class LandingComponent implements OnInit {
         this.fullname = '';
     }
 
+=======
+    ) {}
+
+    ngOnInit() {
+        this.loadFoods();
+        this.checkLoginStatus();
+        this.header = new HttpHeaders().set(
+            storageKey.AUTHORIZATION,
+            this.authService.getToken()
+        );
+    }
+
+    showLoginAlert() {
+        this.messageService.add({
+            severity: 'warn',
+            summary: 'Chưa đăng nhập',
+            detail: 'Vui lòng đăng nhập trước khi vào giỏ hàng.',
+        });
+    }
+
+    checkLoginStatus() {
+        this.isLoggedIn = this.authService.isAuthenticated();
+        if (this.isLoggedIn) {
+            this.fullname = this.authService.getFullname();
+            this.accountId = this.authService.getAccountid();
+            this.email = this.authService.getEmail();
+            this.phonenumber = this.authService.getPhonenumber();
+            // console.log("Username khi vào Landing Page:", this.fullname);
+            // console.log("AccountID khi vào Landing Page:", this.accountId);
+        }
+    }
+
+    logout() {
+        this.authService.logout();
+        this.isLoggedIn = false;
+        this.fullname = '';
+    }
+
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
     loadFoods() {
         this.foodService.getAllFoods().subscribe(
             (data) => {
@@ -581,6 +758,7 @@ export class LandingComponent implements OnInit {
     navigateToLanding() {
         this.router.navigate(['/pages/landing'], { fragment: 'home' });
     }
+<<<<<<< HEAD
 
     getCanteenInfo(): void {
         this.http
@@ -606,4 +784,6 @@ export class LandingComponent implements OnInit {
     disconnect() {
         this.stompClient.deactivate();
     }
+=======
+>>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
 }
