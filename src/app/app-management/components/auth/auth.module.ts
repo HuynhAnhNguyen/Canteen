@@ -14,7 +14,7 @@ import { ToastModule } from 'primeng/toast';
 import { PagesModule } from '../pages/pages.module';
 import { CartComponent } from './cart/cart.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
-
+import { TagModule } from 'primeng/tag';
 @NgModule({
     imports: [
         CommonModule,
@@ -26,6 +26,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
         PasswordModule,
         ToastModule,
         PagesModule,
+        TagModule
         
     ],
     declarations: [

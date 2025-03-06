@@ -209,6 +209,8 @@ export class OrderHistoryComponent implements OnInit {
       case 'unconfirmed': return 'Chưa xác nhận';
       case 'done': return 'Đã xong';
       case 'preparing': return 'Đang chuẩn bị';
+      case 'rejected' : return 'Khách hàng không tới lấy hàng';
+      case 'cancel' : return 'Đã hủy'
       default: return 'Không xác định';
     }
   }
