@@ -28,7 +28,13 @@
                 <td>{{ order.orderTime | date: 'HH:mm:ss dd/MM/yyyy ' }}</td>
                 <td>{{ order.totalPrice | number:'1.0-2' }} VND</td>
                 <!-- <td>{{ order.status }}</td> -->
-                <td>{{ getOrderStatusText(order.status) }}</td>
+                <td>
+                    <p-tag value="Chưa xác nhận" *ngIf = "order.status == 'unconfirmed'" severity="danger"></p-tag>
+                    <p-tag value="Đang chuẩn bị" *ngIf = "order.status=='preparing'"></p-tag>
+                    <p-tag value="Đã hủy" *ngIf = "order.status=='cancel'" severity="danger"></p-tag>
+                    <p-tag value="Đã hoàn thành" *ngIf = "order.status=='done'" severity="success"></p-tag>
+                    <p-tag value="Khách hàng không nhận hàng" *ngIf = "order.status=='rejected'" severity="danger"></p-tag>
+                </td>
                 <td>
                     <button class="btn btn-danger" 
                             (click)="cancelOrder(order.id)" 
