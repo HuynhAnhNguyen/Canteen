@@ -173,11 +173,13 @@
                     [(ngModel)]="createFoodModel.price" required autofocus placeholder="Nhập giá (VND)" />
             </div>
 
+            
             <div class="field col-12 lg:col-6">
-                <label for="foodDescription" style="font-weight: bold;">Mô tả</label>
-                <input id="foodDescription" pTooltip="Nhập mô tả món ăn" tooltipPosition="bottom" pInputText
-                    [(ngModel)]="createFoodModel.description" required placeholder="Nhập mô tả" />
-            </div>
+                <label for="foodStatus" style="font-weight: bold;">Trạng thái</label>
+                <p-dropdown id="foodStatus" [options]="status" [(ngModel)]="createFoodModel.status"
+                    placeholder="Chọn trạng thái" optionLabel="name" optionValue="value">
+                </p-dropdown>
+            </div> 
 
             <div class="field col-12 lg:col-6">
                 <label for="code" style="font-weight: bold;">Loại món ăn</label>
@@ -210,11 +212,10 @@
                 </div> -->
             </div>
             <div class="field col-12 lg:col-6">
-                <label for="foodStatus" style="font-weight: bold;">Trạng thái</label>
-                <p-dropdown id="foodStatus" [options]="status" [(ngModel)]="createFoodModel.status"
-                    placeholder="Chọn trạng thái" optionLabel="name" optionValue="value">
-                </p-dropdown>
-            </div> 
+                <label for="foodDescription" style="font-weight: bold;">Mô tả</label>
+                <input id="foodDescription" pTooltip="Nhập mô tả món ăn" tooltipPosition="bottom" pInputText
+                    [(ngModel)]="createFoodModel.description" required placeholder="Nhập mô tả" />
+            </div>
             <div class="field col-12 image-container" *ngIf="createFoodModel.imageUrl" >
                 <p-image [src]="backendApiUrl +'/api/v1/project/auth/' + createFoodModel.imageUrl" alt="Image" width="250" [preview]="true" ></p-image>
             </div>
