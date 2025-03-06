@@ -335,4 +335,19 @@ export class ManageOrderComponent implements OnInit {
             }
         );
       }
+      
+      checkTimeDifference(timeString: string): boolean {
+        // Chuyển chuỗi thành đối tượng Date
+        const givenTime = new Date(timeString);
+        const currentTime = new Date();
+      
+        // Tính sự chênh lệch (đơn vị: milliseconds)
+        const timeDifference = currentTime.getTime() - givenTime.getTime();
+      
+        // Đổi 12 giờ ra milliseconds
+        const twelveHours = 12 * 60 * 60 * 1000;
+      
+        // So sánh và trả về kết quả
+        return timeDifference > twelveHours;
+      }
 }
