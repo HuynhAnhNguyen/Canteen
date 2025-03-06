@@ -23,7 +23,7 @@ import { ActionHistoryComponent } from './action-history/action-history.componen
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { ManageMenuComponent } from './manage-menu/manage-menu.component';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { ImageModule } from 'primeng/image';
 @NgModule({
     declarations: [
       LoadingComponent,
@@ -49,7 +49,8 @@ import { CheckboxModule } from 'primeng/checkbox';
         PasswordModule,
         ProgressSpinnerModule,
         TagModule,
-        CheckboxModule
+        CheckboxModule,
+        ImageModule
     ],
     exports: [LoadingComponent]
 })

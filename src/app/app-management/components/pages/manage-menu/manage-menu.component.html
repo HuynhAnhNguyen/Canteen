@@ -150,7 +150,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="isShowCreateFood" [maximizable]="true" [resizable]="false"
-    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin món ăn"
+   [responsive]="true" [draggable]="false" header="Thông tin món ăn"
     [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '45vw'}"
     [modal]="true">
 
@@ -177,10 +177,9 @@
             </div>
 
             <div class="field col-12 lg:col-6">
-                <label for="foodStatus" style="font-weight: bold;">Trạng thái</label>
-                <p-dropdown id="foodStatus" [options]="status" [(ngModel)]="createFoodModel.status"
-                    placeholder="Chọn trạng thái" optionLabel="name" optionValue="value">
-                </p-dropdown>
+                <label for="code" style="font-weight: bold;">Loại món ăn</label>
+                <p-dropdown id="code" [options]="listCategory" [(ngModel)]="categorySelected"
+                placeholder="Chọn loại món ăn"  optionLabel="name" optionValue="id"></p-dropdown>
             </div>
 
             <!-- <div class="field col-12 lg:col-6">
@@ -202,19 +201,22 @@
                 </div>
             
                 <!-- Hiển thị ảnh đã chọn -->
-                <div class="image-preview" *ngIf="createFoodModel.imageUrl">
+                <!-- <div class="image-preview" *ngIf="createFoodModel.imageUrl">
                     <img [src]="backendApiUrl +'/api/v1/project/auth/' + createFoodModel.imageUrl"
                         alt="Ảnh món ăn">
-                </div>
+                </div> -->
             </div>
-            
+            <div class="field col-12 lg:col-6">
+                <label for="foodStatus" style="font-weight: bold;">Trạng thái</label>
+                <p-dropdown id="foodStatus" [options]="status" [(ngModel)]="createFoodModel.status"
+                    placeholder="Chọn trạng thái" optionLabel="name" optionValue="value">
+                </p-dropdown>
+            </div> 
+            <div class="field col-12 image-container" *ngIf="createFoodModel.imageUrl" >
+                <p-image [src]="backendApiUrl +'/api/v1/project/auth/' + createFoodModel.imageUrl" alt="Image" width="250" [preview]="true" ></p-image>
+            </div>
             
 
-            <div class="field col-12 lg:col-3">
-                <label for="code" style="font-weight: bold;">Loại món ăn</label>
-                <p-dropdown id="code" [options]="listCategory" [(ngModel)]="categorySelected"
-                placeholder="Chọn loại món ăn"  optionLabel="name" optionValue="id"></p-dropdown>
-            </div>
         </div>
             
 
