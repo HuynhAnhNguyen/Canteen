@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { WebSocketService } from '../../service/websocketService';
 import { AuthService } from '../../service/auth.service';
 import { environment } from 'src/environments/environment';
@@ -11,8 +11,6 @@ import { storageKey } from 'src/app/app-constant';
     templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-   
-
     chartData: any;
 
     chartOptions: any;
@@ -32,33 +30,40 @@ export class DashboardComponent implements OnInit {
     chartDay: any;
     chartMonth: any;
 
-    constructor( public layoutService: LayoutService,private messageService: MessageService,
-        private websocketService: WebSocketService,private authService:AuthService,private http: HttpClient) {
-        
+    constructor(
+        public layoutService: LayoutService,
+        private messageService: MessageService,
+        private websocketService: WebSocketService,
+        private authService: AuthService,
+        private http: HttpClient
+    ) {
         // this.websocketService.connect();
     }
 
     ngOnInit() {
-         this.header = new HttpHeaders().set(
-                    storageKey.AUTHORIZATION,
-                    this.authService.getToken()
-                );
+        this.header = new HttpHeaders().set(
+            storageKey.AUTHORIZATION,
+            this.authService.getToken()
+        );
         this.loadData();
-
-       
     }
 
     async loadData() {
         this.loading = true;
         await this.http
-            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalRevenueToday', {
-                headers: this.header,
-            }).toPromise()
+            .get<ResponseMessage>(
+                environment.backendApiUrl +
+                    '/api/v1/project/order/getTotalRevenueToday',
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
             .then(
                 (data) => {
                     if (data?.resultCode == 0) {
-
-                        this.totalRevenueToday = data.data == null?0:data.data;
+                        this.totalRevenueToday =
+                            data.data == null ? 0 : data.data;
                         // console.log(this.listAccount);
                     } else {
                         this.messageService.add({
@@ -66,7 +71,7 @@ export class DashboardComponent implements OnInit {
                             summary: data?.message,
                         });
                     }
-                    console.log(data)
+                    console.log(data);
                 },
                 (error) => {
                     this.messageService.add({
@@ -76,11 +81,15 @@ export class DashboardComponent implements OnInit {
                 }
             );
 
-
-            await this.http
-            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalDoneOrdersToday', {
-                headers: this.header,
-            }).toPromise()
+        await this.http
+            .get<ResponseMessage>(
+                environment.backendApiUrl +
+                    '/api/v1/project/order/getTotalDoneOrdersToday',
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
             .then(
                 (data) => {
                     if (data?.resultCode == 0) {
@@ -92,7 +101,7 @@ export class DashboardComponent implements OnInit {
                             summary: data?.message,
                         });
                     }
-                    console.log(data)
+                    console.log(data);
                 },
                 (error) => {
                     this.messageService.add({
@@ -102,10 +111,15 @@ export class DashboardComponent implements OnInit {
                 }
             );
 
-            await this.http
-            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalPreparingOrdersToday', {
-                headers: this.header,
-            }).toPromise()
+        await this.http
+            .get<ResponseMessage>(
+                environment.backendApiUrl +
+                    '/api/v1/project/order/getTotalPreparingOrdersToday',
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
             .then(
                 (data) => {
                     if (data?.resultCode == 0) {
@@ -117,7 +131,7 @@ export class DashboardComponent implements OnInit {
                             summary: data?.message,
                         });
                     }
-                    console.log(data)
+                    console.log(data);
                 },
                 (error) => {
                     this.messageService.add({
@@ -127,10 +141,15 @@ export class DashboardComponent implements OnInit {
                 }
             );
 
-            await this.http
-            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalUnConfirmOrdersToday', {
-                headers: this.header,
-            }).toPromise()
+        await this.http
+            .get<ResponseMessage>(
+                environment.backendApiUrl +
+                    '/api/v1/project/order/getTotalUnConfirmOrdersToday',
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
             .then(
                 (data) => {
                     if (data?.resultCode == 0) {
@@ -142,7 +161,7 @@ export class DashboardComponent implements OnInit {
                             summary: data?.message,
                         });
                     }
-                    console.log(data)
+                    console.log(data);
                 },
                 (error) => {
                     this.messageService.add({
@@ -152,11 +171,15 @@ export class DashboardComponent implements OnInit {
                 }
             );
 
-
-            await this.http
-            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalRevenueLastDays?day=7', {
-                headers: this.header,
-            }).toPromise()
+        await this.http
+            .get<ResponseMessage>(
+                environment.backendApiUrl +
+                    '/api/v1/project/order/getTotalRevenueLastDays?day=7',
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
             .then(
                 (data) => {
                     if (data?.resultCode == 0) {
@@ -169,7 +192,7 @@ export class DashboardComponent implements OnInit {
                             summary: data?.message,
                         });
                     }
-                    console.log(data)
+                    console.log(data);
                 },
                 (error) => {
                     this.messageService.add({
@@ -179,10 +202,15 @@ export class DashboardComponent implements OnInit {
                 }
             );
 
-            await this.http
-            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/order/getTotalRevenueLastMonths?month=12', {
-                headers: this.header,
-            }).toPromise()
+        await this.http
+            .get<ResponseMessage>(
+                environment.backendApiUrl +
+                    '/api/v1/project/order/getTotalRevenueLastMonths?month=12',
+                {
+                    headers: this.header,
+                }
+            )
+            .toPromise()
             .then(
                 (data) => {
                     if (data?.resultCode == 0) {
@@ -195,7 +223,7 @@ export class DashboardComponent implements OnInit {
                             summary: data?.message,
                         });
                     }
-                    console.log(data)
+                    console.log(data);
                 },
                 (error) => {
                     this.messageService.add({
@@ -205,7 +233,7 @@ export class DashboardComponent implements OnInit {
                 }
             );
 
-            this.loading = false;
+        this.loading = false;
     }
 
     initChartByDay() {
@@ -216,11 +244,11 @@ export class DashboardComponent implements OnInit {
         );
         const surfaceBorder =
             documentStyle.getPropertyValue('--surface-border');
-        this.chartDataDay =[];
+        this.chartDataDay = [];
         this.chartLabelDay = [];
-        for(let i = 0; i<this.dataChartByDay.length; i++) {
+        for (let i = 0; i < this.dataChartByDay.length; i++) {
             this.chartLabelDay.push(this.dataChartByDay[i].orderDate);
-            this.chartDataDay.push(this.dataChartByDay[i].totalRevenue)
+            this.chartDataDay.push(this.dataChartByDay[i].totalRevenue);
         }
 
         this.chartDay = {
@@ -232,10 +260,9 @@ export class DashboardComponent implements OnInit {
                     fill: false,
                     backgroundColor:
                         documentStyle.getPropertyValue('--green-500'),
-                    borderColor:
-                        documentStyle.getPropertyValue('--green-500'),
+                    borderColor: documentStyle.getPropertyValue('--green-500'),
                     tension: 0.4,
-                }
+                },
             ],
         };
 
@@ -272,11 +299,11 @@ export class DashboardComponent implements OnInit {
 
     initChartByMonth() {
         const documentStyle = getComputedStyle(document.documentElement);
-        this.chartDataMonth =[];
+        this.chartDataMonth = [];
         this.chartLabelMonth = [];
-        for(let i = 0; i<this.dataChartByMonth.length; i++) {
+        for (let i = 0; i < this.dataChartByMonth.length; i++) {
             this.chartLabelMonth.push(this.dataChartByMonth[i].orderMonth);
-            this.chartDataMonth.push(this.dataChartByMonth[i].totalRevenue)
+            this.chartDataMonth.push(this.dataChartByMonth[i].totalRevenue);
         }
         this.chartMonth = {
             labels: this.chartLabelMonth,
@@ -287,19 +314,12 @@ export class DashboardComponent implements OnInit {
                     fill: false,
                     backgroundColor:
                         documentStyle.getPropertyValue('--blue-500'),
-                    borderColor:
-                        documentStyle.getPropertyValue('--blue-500'),
+                    borderColor: documentStyle.getPropertyValue('--blue-500'),
                     tension: 0.4,
-                }
+                },
             ],
         };
-        console.log(this.chartMonth)
-        console.log(this.chartDay)
+        console.log(this.chartMonth);
+        console.log(this.chartDay);
     }
-
-   
-
-   
-
-  
 }

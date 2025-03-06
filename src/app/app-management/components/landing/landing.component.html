@@ -5,7 +5,8 @@
             class="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3">
             <a class="flex align-items-center" href="#">
                 <img src="assets/layout/images/logo.svg" alt="Logo" height="50" class="mr-0 lg:mr-2">
-                <span *ngIf="canteenInfo" class="text-900 font-medium text-2xl line-height-3 mr-8">{{ canteenInfo.data?.name }}</span>
+                <span *ngIf="infoShop" class="text-900 font-medium text-2xl line-height-3 mr-8">{{
+                    infoShop.name }}</span>
 
             </a>
             <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden"
@@ -38,14 +39,19 @@
                         </a>
 
                     </li>
-                    
+
                     <li>
                         <a routerLink="/gioi-thieu" pRipple
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Giới thiệu</span>
                         </a>
                     </li>
-                      
+                    <li>
+                        <a *ngIf="isAdmin == 'ROLE_ADMIN'" (click)="showDialogInfoShop()" fragment="features" pRipple
+                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                            <span>Admin</span>
+                        </a>
+                    </li>
                 </ul>
                 <div
                     class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
@@ -89,7 +95,7 @@
                     <div class="cta-banner__content">
                         <h1 class="cta-banner__title">Fooddy – Đặt món nhanh, thưởng thức trọn vị!</h1>
 
-                        <p class="cta-banner__description">Thời gian mở cửa 7h:30 - 18h</p>
+                        <p class="cta-banner__description">Thời gian mở cửa {{ infoShop.openTime }}</p>
 
                         <div class="cta-banner__btns first">
                             <a [routerLink]="[]" fragment="datmonan" class="button2">Đặt món ngay</a>
@@ -115,7 +121,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4 mb-4" *ngFor="let food of foods | paginate: { itemsPerPage: pageSize, currentPage: page }">
+                    <div class="col-md-4 mb-4"
+                        *ngFor="let food of foods | paginate: { itemsPerPage: pageSize, currentPage: page }">
                         <div class="card">
                             <img [src]="backendApiUrl +'/api/v1/project/auth/' + food.imageUrl"
                                 style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
@@ -157,15 +164,15 @@
         </div>
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
             <div class="grid justify-content-between">
-                <div *ngIf="canteenInfo" class="col-12 md:col-5" style="margin-top:-1.5rem;">
+                <div *ngIf="infoShop" class="col-12 md:col-5" style="margin-top:-1.5rem;">
                     <a href="#"
                         class="flex flex-wrap align-items-center justify-content-center md:justify-content-start md:mb-0 mb-3 cursor-pointer">
                         <img src="assets/layout/images/logo.svg" alt="footer sections" width="50" height="50"
                             class="mr-2">
-                        <h4 class="font-medium text-3xl text-900">{{ canteenInfo.data?.name }}</h4>
+                        <h4 class="font-medium text-3xl text-900">{{ infoShop.name }}</h4>
                     </a>
-                    <p>Thời gian mở cửa: {{ canteenInfo.data?.openTime }}</p>
-                    <p>Địa chỉ: {{ canteenInfo.data?.adress }}</p>
+                    <p>Thời gian mở cửa: {{ infoShop.openTime }}</p>
+                    <p>Địa chỉ: {{ infoShop.adress }}</p>
                 </div>
 
                 <div class="col-12 md:col-10 lg:col-7">
@@ -194,4 +201,53 @@
             </div>
         </div>
     </div>
+</div>
+<div class="card flex justify-center">
+    <p-dialog [(visible)]="showInfoShop" [maximizable]="true" [resizable]="false"
+        [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin của hàng"
+        [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
+        [modal]="true">
+        <ng-template pTemplate="content">
+            <div class="grid">
+                <div class="text-center col-12" style="font-weight: bold; font-size: large">
+                    Thông tin tài khoản
+                </div>
+
+                <div class="field col-12 lg:col-6">
+                    <label for="time" style="font-weight: bold">Tên cửa hàng</label>
+                    <input id="time" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.name" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="name" style="font-weight: bold">Địa chỉ</label>
+                    <input id="name" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.adress" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="name" style="font-weight: bold">Email</label>
+                    <input id="name" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.email" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="departure" style="font-weight: bold">Số điện thoại</label>
+                    <input id="name" pTooltip="Số điện thoại" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.phone" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="departure" style="font-weight: bold">Mô tả</label>
+                    <input id="name" pTooltip="Mô tả" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.description" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="departure" style="font-weight: bold">Thời gian hoạt động</label>
+                    <input id="name" pTooltip="Thời gian hoạt động" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.openTime" required autofocus />
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cập nhật thông tin" pTooltip="Cập nhật thông tin" (click)="infoShopUpdate()"
+                class="p-button-text"></button>
+        </ng-template>
+    </p-dialog>
 </div>
