@@ -267,16 +267,8 @@ export class ManageMenuComponent implements OnInit {
   }
 
   updateFood() {
-    const foodData = {
-        id: this.foodSelected.id,
-        price: this.foodSelected.price,
-        name: this.foodSelected.name,
-        description: this.foodSelected.description,
-        imageUrl: this.foodSelected.imageUrl,
-        status: this.foodSelected.status
-    };
 
-    this.http.put<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/food/update', foodData,{ headers: this.header }).subscribe({
+    this.http.put<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/food/update', this.foodSelected,{ headers: this.header }).subscribe({
         next: (response) => {
             console.log('Cập nhật thành công:', response);
             this.loadData();
