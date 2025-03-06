@@ -11,11 +11,10 @@
         </div>
         <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem ml-2" [disabled]="scale === scales[scales.length - 1]"></button>
     </div>
-    <div  class="flex align-items-center">
+    <!-- <div  class="flex align-items-center">
         <button icon="pi pi-minus" type="button" pButton (click)="switchLanguage('en')" class="p-button-text p-button-rounded w-2rem h-2rem mr-2" ></button>
         <button icon="pi pi-plus" type="button" pButton (click)="switchLanguage('vn')" class="p-button-text p-button-rounded w-2rem h-2rem mr-2" ></button>
-        <!-- <p-selectbutton [options]="langOptions" [(ngModel)]="lang" (onChange) = "switchLanguage()" optionLabel="label" optionValue="value" aria-labelledby="basic" /> -->
-    </div>
+    </div> -->
 
     <ng-container *ngIf="!minimal">
         <h5>Menu Type</h5>
