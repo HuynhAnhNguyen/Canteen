@@ -28,6 +28,7 @@ export class ManageOrderComponent implements OnInit {
     private stompClient: Client;
     isShowOrderDetail: boolean = false;
     loadAllOrder: boolean =  false;
+    backendApiUrl: string = '';
 
 
 
@@ -40,6 +41,7 @@ export class ManageOrderComponent implements OnInit {
           private authService: AuthService,
           private confirmationService: ConfirmationService
       ) {
+        this.backendApiUrl = environment.backendApiUrl;
         this.stompClient = new Client({
               brokerURL:environment.backendApiUrl+ '/ws?token='+this.authService.getToken(), 
             //   connectHeaders: {

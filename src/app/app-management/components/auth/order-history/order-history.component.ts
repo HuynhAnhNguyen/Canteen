@@ -35,11 +35,13 @@ export class OrderHistoryComponent implements OnInit {
   showDetailModal: boolean = false;
   userInfo: any = null;
   stompClient: Client;
+  backendApiUrl: string = '';
 
 
   constructor(private http: HttpClient,
     private authService: AuthService,
     private messageService: MessageService) {
+    this.backendApiUrl = environment.backendApiUrl;
     this.stompClient = new Client({
       brokerURL: environment.backendApiUrl + '/ws?token=' + this.authService.getToken(),
       debug: (msg: string) => console.log(msg), // Debug log

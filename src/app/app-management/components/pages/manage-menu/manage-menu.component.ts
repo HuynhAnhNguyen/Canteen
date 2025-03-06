@@ -26,6 +26,7 @@ export class ManageMenuComponent implements OnInit {
     categorySelected: number = 1;
     isShowFoodDetail: boolean = false;
     isShowCreateFood: boolean = false;
+    backendApiUrl: string = '';
 
     status = [
         {
@@ -56,6 +57,7 @@ export class ManageMenuComponent implements OnInit {
             storageKey.AUTHORIZATION,
             this.authService.getToken()
         );
+        this.backendApiUrl = environment.backendApiUrl;
         this.loadData();
     }
 
