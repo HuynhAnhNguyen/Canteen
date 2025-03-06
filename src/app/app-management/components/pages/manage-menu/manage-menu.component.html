@@ -120,6 +120,13 @@
                 [(ngModel)]="foodSelected.name"required autofocus placeholder="Món số 1" />
             </div>
 
+            <div class="field col-12 lg:col-4">
+                <label for="status" style="font-weight: bold;">Trạng thái</label>
+                <p-dropdown id="foodStatus" [options]="status" [(ngModel)]="createFoodModel.status"
+                    placeholder="Chọn trạng thái" optionLabel="name" optionValue="value">
+                </p-dropdown>
+            </div>
+
             <div class="field col-12 lg:col-6">
                 <label for="foodPrice" style="font-weight: bold;">Giá</label>
                 <input id="foodPrice" type="number" pTooltip="Nhập giá món ăn" tooltipPosition="bottom" pInputText
@@ -132,12 +139,7 @@
                     [(ngModel)]="foodSelected.description" required placeholder="Nhập mô tả" />
             </div>
             
-            <div class="field col-12 lg:col-4">
-                <label for="status" style="font-weight: bold;">Trạng thái</label>
-                <p-dropdown id="foodStatus" [options]="status" [(ngModel)]="createFoodModel.status"
-                    placeholder="Chọn trạng thái" optionLabel="name" optionValue="value">
-                </p-dropdown>
-            </div>
+            
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
