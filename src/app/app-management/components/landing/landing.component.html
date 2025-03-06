@@ -5,6 +5,7 @@
             class="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3"
         >
             <a class="flex align-items-center" href="#">
+<<<<<<< Updated upstream
                 <img
                     src="assets/layout/images/logo.svg"
                     alt="Logo"
@@ -16,6 +17,11 @@
                     class="text-900 font-medium text-2xl line-height-3 mr-8"
                     >{{ canteenInfo.data?.name }}</span
                 >
+=======
+                <img src="assets/layout/images/logo.svg" alt="Logo" height="50" class="mr-0 lg:mr-2" />
+                <span *ngIf="infoShop" class="text-900 font-medium text-2xl line-height-3 mr-8">{{
+                    infoShop.name }}</span>
+>>>>>>> Stashed changes
             </a>
             <a
                 pRipple
@@ -27,10 +33,15 @@
             >
                 <i class="pi pi-bars text-4xl"></i>
             </a>
+<<<<<<< Updated upstream
             <div
                 class="align-items-center surface-0 flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full left-0 px-6 lg:px-0 z-2"
                 style="top: 85%"
             >
+=======
+            <div class="align-items-center surface-0 flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full left-0 px-6 lg:px-0 z-2"
+                style="top: 85%">
+>>>>>>> Stashed changes
                 <ul
                     class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row cursor-pointer"
                 >
@@ -79,6 +90,7 @@
                             <span>Giới thiệu</span>
                         </a>
                     </li>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                     <a
                         *ngIf="isAdmin == 'ROLE_ADMIN'"
@@ -108,6 +120,15 @@
 =======
                       
 >>>>>>> 4592263ce1a3c7b61708c7798266f298d8a9c510
+=======
+                    <li>
+                        <a *ngIf="isAdmin == 'ROLE_ADMIN'" (click)="showDialogInfoShop()" fragment="features" pRipple
+                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
+                            <span>Admin</span>
+                        </a>
+                    </li>
+
+>>>>>>> Stashed changes
                 </ul>
                 <div
                     class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0"
@@ -119,34 +140,51 @@
                             pRipple
                             label="Đăng nhập"
                             class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"
+<<<<<<< Updated upstream
                             routerLink="/auth/dang-nhap"
                         ></button>
+=======
+                            routerLink="/auth/dang-nhap"></button>
+>>>>>>> Stashed changes
 
                         <button
                             pButton
                             pRipple
                             label="Đăng ký"
                             class="p-button-rounded border-none ml-5 font-light line-height-2 bg-blue-500 text-white"
+<<<<<<< Updated upstream
                             routerLink="/auth/dang-ky"
                         ></button>
+=======
+                            routerLink="/auth/dang-ky"></button>
+>>>>>>> Stashed changes
                     </div>
 
                     <!-- Nếu đã đăng nhập -->
                     <div *ngIf="isLoggedIn">
+<<<<<<< Updated upstream
                         <button
                             pButton
                             pRipple
                             label="Xin chào {{ fullname }}"
                             class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"
                         ></button>
+=======
+                        <button pButton pRipple label="Xin chào {{ fullname }}"
+                            class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
+>>>>>>> Stashed changes
                         <!-- <span class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500">Xin chào, {{ username }}</span> -->
                         <button
                             pButton
                             pRipple
                             label="Đăng xuất"
                             class="p-button-text p-button-rounded border-none font-light line-height-2 text-red-500 ml-3"
+<<<<<<< Updated upstream
                             (click)="logout()"
                         ></button>
+=======
+                            (click)="logout()"></button>
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
@@ -165,7 +203,11 @@
                         </h1>
 
                         <p class="cta-banner__description">
+<<<<<<< Updated upstream
                             Thời gian mở cửa 7h:30 - 18h
+=======
+                            Thời gian mở cửa {{ infoShop.openTime }}
+>>>>>>> Stashed changes
                         </p>
 
                         <div class="cta-banner__btns first">
@@ -181,11 +223,16 @@
                     </div>
 
                     <figure>
+<<<<<<< Updated upstream
                         <img
                             class="cta-banner__img cd-radius-md"
                             src="assets/demo/images/banner/banner.jpg"
                             alt="Banner"
                         />
+=======
+                        <img class="cta-banner__img cd-radius-md" src="assets/demo/images/banner/banner.jpg"
+                            alt="Banner" />
+>>>>>>> Stashed changes
                     </figure>
                 </div>
             </section>
@@ -200,15 +247,20 @@
                 </div>
 
                 <div class="row">
+<<<<<<< Updated upstream
                     <div
                         class="col-md-4 mb-4"
                         *ngFor="
+=======
+                    <div class="col-md-4 mb-4" *ngFor="
+>>>>>>> Stashed changes
                             let food of foods
                                 | paginate
                                     : {
                                           itemsPerPage: pageSize,
                                           currentPage: page
                                       }
+<<<<<<< Updated upstream
                         "
                     >
                         <div class="card">
@@ -221,17 +273,29 @@
                                 class="card-img-top"
                                 alt="Food Image"
                             />
+=======
+                        ">
+                        <div class="card">
+                            <img [src]="
+                                    'http://13.239.169.8:8080/api/v1/project/auth/' +
+                                    food.imageUrl
+                                " style="width: 100%; height: 200px" class="card-img-top" alt="Food Image" />
+>>>>>>> Stashed changes
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ food.name }}</h5>
                                 <p class="card-text text-danger fw-bold">
                                     {{ food.price | number : "1.0-2" }} VND
                                 </p>
                                 <!-- Nút Xem chi tiết -->
+<<<<<<< Updated upstream
                                 <button
                                     style="margin-right: 10px"
                                     class="btn btn-info"
                                     (click)="viewDetails(food)"
                                 >
+=======
+                                <button style="margin-right: 10px" class="btn btn-info" (click)="viewDetails(food)">
+>>>>>>> Stashed changes
                                     Xem chi tiết
                                 </button>
 
@@ -246,6 +310,7 @@
                                 <!-- Modal hiển thị chi tiết sản phẩm -->
                                 <div *ngIf="showDetailModal" class="modal show">
                                     <div class="modal-content">
+<<<<<<< Updated upstream
                                         <img
                                             [src]="
                                                 'http://13.239.169.8:8080/api/v1/project/auth/' +
@@ -255,12 +320,24 @@
                                             class="card-img-top"
                                             alt="Food Image"
                                         />
+=======
+                                        <img [src]="
+                                                'http://13.239.169.8:8080/api/v1/project/auth/' +
+                                                selectedFood?.imageUrl
+                                            " style="width: 100%; height: 200px" class="card-img-top"
+                                            alt="Food Image" />
+>>>>>>> Stashed changes
                                         <h2>{{ selectedFood?.name }}</h2>
                                         <p>
                                             <strong>Giá:</strong>
                                             {{
+<<<<<<< Updated upstream
                                                 selectedFood?.price
                                                     | number : "1.0-2"
+=======
+                                            selectedFood?.price
+                                            | number : "1.0-2"
+>>>>>>> Stashed changes
                                             }}
                                             VND
                                         </p>
@@ -269,10 +346,14 @@
                                             {{ selectedFood?.description }}
                                         </p>
 
+<<<<<<< Updated upstream
                                         <button
                                             class="btn btn-danger"
                                             (click)="closeDetail()"
                                         >
+=======
+                                        <button class="btn btn-danger" (click)="closeDetail()">
+>>>>>>> Stashed changes
                                             Đóng
                                         </button>
                                     </div>
@@ -282,13 +363,18 @@
                     </div>
                 </div>
                 <!-- Phân trang -->
+<<<<<<< Updated upstream
                 <pagination-controls
                     (pageChange)="onPageChange($event)"
                 ></pagination-controls>
+=======
+                <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+>>>>>>> Stashed changes
             </div>
         </div>
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
             <div class="grid justify-content-between">
+<<<<<<< Updated upstream
                 <div
                     *ngIf="canteenInfo"
                     class="col-12 md:col-5"
@@ -307,15 +393,25 @@
                         />
                         <h4 class="font-medium text-3xl text-900">
                             {{ canteenInfo.data?.name }}
+=======
+                <div *ngIf="infoShop" class="col-12 md:col-5" style="margin-top: -1.5rem">
+                    <a href="#"
+                        class="flex flex-wrap align-items-center justify-content-center md:justify-content-start md:mb-0 mb-3 cursor-pointer">
+                        <img src="assets/layout/images/logo.svg" alt="footer sections" width="50" height="50"
+                            class="mr-2" />
+                        <h4 class="font-medium text-3xl text-900">
+                            {{ infoShop.name }}
+>>>>>>> Stashed changes
                         </h4>
                     </a>
-                    <p>Thời gian mở cửa: {{ canteenInfo.data?.openTime }}</p>
-                    <p>Địa chỉ: {{ canteenInfo.data?.adress }}</p>
+                    <p>Thời gian mở cửa: {{ infoShop.openTime }}</p>
+                    <p>Địa chỉ: {{ infoShop.adress }}</p>
                 </div>
 
                 <div class="col-12 md:col-10 lg:col-7">
                     <div class="grid text-center md:text-left">
                         <div class="col-12 md:col-6">
+<<<<<<< Updated upstream
                             <h4
                                 class="font-medium text-2xl line-height-3 mb-3 text-900"
                             >
@@ -333,6 +429,14 @@
                                 class="line-height-3 text-xl block cursor-pointer mb-2 text-700"
                                 >Tuyển dụng</a
                             >
+=======
+                            <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">
+                                Canteen
+                            </h4>
+                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Về chúng tôi</a>
+                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Tin tức</a>
+                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Tuyển dụng</a>
+>>>>>>> Stashed changes
                         </div>
 
                         <!-- <div class="col-12 md:col-4 mt-4 md:mt-0">
@@ -343,6 +447,7 @@
                         </div> -->
 
                         <div class="col-12 md:col-6 mt-6 md:mt-0">
+<<<<<<< Updated upstream
                             <h4
                                 class="font-medium text-2xl line-height-3 mb-3 text-900"
                             >
@@ -356,6 +461,13 @@
                                 class="line-height-3 text-xl block cursor-pointer mb-2 text-700"
                                 >Câu hỏi thường gặp</a
                             >
+=======
+                            <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">
+                                Trợ giúp
+                            </h4>
+                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Sự kiện</a>
+                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Câu hỏi thường gặp</a>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>
@@ -363,6 +475,7 @@
         </div>
     </div>
 </div>
+<<<<<<< Updated upstream
 
 <!-- hiển thị thông tin của hàng -->
 
@@ -486,3 +599,54 @@
         </ng-template>
     </p-dialog>
 </div>
+=======
+<div class="card flex justify-center">
+    <p-dialog [(visible)]="showInfoShop" [maximizable]="true" [resizable]="false"
+        [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin của hàng"
+        [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
+        [modal]="true">
+        <ng-template pTemplate="content">
+            <div class="grid">
+                <div class="text-center col-12" style="font-weight: bold; font-size: large">
+                    Thông tin tài khoản
+                </div>
+
+                <div class="field col-12 lg:col-6">
+                    <label for="time" style="font-weight: bold">Tên cửa hàng</label>
+                    <input id="time" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.name" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="name" style="font-weight: bold">Địa chỉ</label>
+                    <input id="name" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.adress" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="name" style="font-weight: bold">Email</label>
+                    <input id="name" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.email" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="departure" style="font-weight: bold">Số điện thoại</label>
+                    <input id="name" pTooltip="Số điện thoại" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.phone" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="departure" style="font-weight: bold">Mô tả</label>
+                    <input id="name" pTooltip="Mô tả" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.description" required autofocus />
+                </div>
+                <div class="field col-12 lg:col-6">
+                    <label for="departure" style="font-weight: bold">Thời gian hoạt động</label>
+                    <input id="name" pTooltip="Thời gian hoạt động" tooltipPosition="bottom" pInputText
+                        [(ngModel)]="infoShop.openTime" required autofocus />
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cập nhật thông tin" pTooltip="Cập nhật thông tin" (click)="infoShopUpdate()"
+                class="p-button-text"></button>
+        </ng-template>
+    </p-dialog>
+</div>
+>>>>>>> Stashed changes

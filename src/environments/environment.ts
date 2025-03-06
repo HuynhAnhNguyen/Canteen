@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
   production: false,
   backendApiUrl:"http://13.239.169.8:8080"
@@ -11,6 +12,11 @@ export const environment = {
     backendApiUrl: 'http://13.239.169.8:8080',
     // backendApiUrl:"http://localhost:8080"
 >>>>>>> 300739ed470285a3d13073e1c2292352a1babaa6
+=======
+    production: false,
+    backendApiUrl: 'http://13.239.169.8:8080',
+    //backendApiUrl: 'http://localhost:8080',
+>>>>>>> Stashed changes
 };
 
 /*

@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 import { WebSocketService } from '../../service/websocketService';
 import { Subscription } from 'rxjs';
 import { Client } from '@stomp/stompjs';
+import { infoShopModel } from '../../Model/infoShopModel';
+import { ResponseMessage } from 'src/app/app-management/Model/ResponsMessage';
 
 @Component({
     selector: 'app-landing',
@@ -330,11 +332,17 @@ import { Client } from '@stomp/stompjs';
 })
 export class LandingComponent implements OnInit {
     header: any;
+<<<<<<< Updated upstream
     isLoggedIn: boolean = false;
     isAdmin: string = 'ROLE_ADMIN';
     showInfoShop: boolean = false;
     loading: boolean = false;
     infoShop: any;
+=======
+    isAdmin: string = 'ROLE_ADMIN';
+    showInfoShop: boolean = false;
+    isLoggedIn: boolean = false;
+>>>>>>> Stashed changes
     fullname: string = '';
     foods: any[] = []; // Danh sách món ăn
     accountId: string = '';
@@ -346,6 +354,10 @@ export class LandingComponent implements OnInit {
     pageSize: number = 9; // Số món ăn hiển thị trên mỗi trang
     canteenInfo: any;
     stompClient: Client;
+<<<<<<< Updated upstream
+=======
+    infoShop: infoShopModel = {};
+>>>>>>> Stashed changes
 
     constructor(
         private foodService: FoodService,
@@ -410,6 +422,7 @@ export class LandingComponent implements OnInit {
                         break;
                 }
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                 // Reload lại trang sau khi nhận thông báo
                 setTimeout(() => location.reload(), 1000);
@@ -493,6 +506,97 @@ export class LandingComponent implements OnInit {
         });
     }
 
+=======
+                // Reload lại trang sau khi nhận thông báo
+                // setTimeout(() => location.reload(), 1000);
+                this.loadFoods();
+            };
+
+            // Đăng ký lắng nghe thông báo cá nhân
+            this.stompClient.subscribe(
+                '/user/queue/notifications',
+                handleNotification
+            );
+
+            // Đăng ký lắng nghe thông báo chung
+            this.stompClient.subscribe('/topic/public', handleNotification);
+        };
+
+        this.stompClient.onDisconnect = () => {
+            console.log('Disconnected!');
+        };
+        this.connect();
+    }
+
+    ngOnInit() {
+        this.header = new HttpHeaders().set(
+            storageKey.AUTHORIZATION,
+            this.authService.getToken()
+        );
+        this.loadFoods();
+        this.checkLoginStatus();
+        this.getCanteenInfo();
+        // kiểm tra admin
+        this.isAdmin = this.authService.getRole();
+    }
+
+    showDialogInfoShop() {
+        this.showInfoShop = !this.showInfoShop; // Bật dialog
+    }
+
+    async infoShopUpdate() {
+        // Dữ liệu cần gửi lên API
+        const shopData = {
+            name: this.infoShop.name,
+            adress: this.infoShop.adress,
+            email: this.infoShop.email,
+            phone: this.infoShop.phone,
+            description: this.infoShop.description,
+            openTime: this.infoShop.openTime,
+        };
+
+        await this.http
+            .post(
+                environment.backendApiUrl +
+                    '/api/v1/project/canteenInfo/update',
+                shopData,
+                { headers: this.header }
+            )
+            .toPromise()
+            .then(
+                (data) => {
+                    if (Response) {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Cập nhật thông tin thành công',
+                        });
+                        this.showInfoShop = false;
+                        this.getCanteenInfo();
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Không thể cập nhật thông tin',
+                        });
+                    }
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+    }
+
+    showLoginAlert() {
+        this.messageService.add({
+            severity: 'warn',
+            summary: 'Chưa đăng nhập',
+            detail: 'Vui lòng đăng nhập trước khi vào giỏ hàng.',
+        });
+    }
+
+>>>>>>> Stashed changes
     checkLoginStatus() {
         this.isLoggedIn = this.authService.isAuthenticated();
         if (this.isLoggedIn) {
@@ -591,13 +695,22 @@ export class LandingComponent implements OnInit {
 
     getCanteenInfo(): void {
         this.http
+<<<<<<< Updated upstream
             .get(
+=======
+            .get<any>(
+>>>>>>> Stashed changes
                 environment.backendApiUrl +
                     '/api/v1/project/auth/canteenInfo/get'
             )
             .subscribe(
                 (data) => {
+<<<<<<< Updated upstream
                     this.canteenInfo = data;
+=======
+                    // this.canteenInfo = data;
+                    this.infoShop = data?.data;
+>>>>>>> Stashed changes
                     console.log('Canteen Info:', this.canteenInfo);
                 },
                 (error) => {
