@@ -335,6 +335,7 @@ export class LandingComponent implements OnInit {
   pageSize: number = 9; // Số món ăn hiển thị trên mỗi trang
   canteenInfo: any;
   stompClient: Client;
+  backendApiUrl: string = '';
 
   constructor(
     private foodService: FoodService,
@@ -344,6 +345,7 @@ export class LandingComponent implements OnInit {
     private http: HttpClient,
     private messageService: MessageService,
   ) {
+    this.backendApiUrl = environment.backendApiUrl;
     this.stompClient = new Client({
       brokerURL: environment.backendApiUrl + '/ws?token=' + this.authService.getToken(),
       debug: (msg: string) => console.log(msg), // Debug log
