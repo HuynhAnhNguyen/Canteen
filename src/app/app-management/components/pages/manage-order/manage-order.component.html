@@ -136,7 +136,7 @@
                 <tbody>
                     <tr *ngFor="let item of listOrderDetail">
                         <td>
-                            <img [src]="'http://13.239.169.8:8080/api/v1/project/auth/' + item.imageUrl"
+                            <img [src]=" backendApiUrl +'/api/v1/project/auth/' + item.imageUrl"
                                 class="food-img" alt="Food Image">
                         </td>
                         <td>{{ item.foodName }}</td>
