@@ -62,7 +62,7 @@ export class ManageOrderComponent implements OnInit {
                 });
                 } else if(message.body == 'cancelOrder') {
                   this.messageService.add({
-                    severity: 'success',
+                    severity: 'warn',
                     summary: 'Đơn hàng đã bị hủy',
                 });
                 }
