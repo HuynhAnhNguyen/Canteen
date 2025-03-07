@@ -366,6 +366,12 @@ export class LandingComponent implements OnInit {
             reconnectDelay: 5000, // Tự động kết nối lại sau 5s nếu mất kết nối
             heartbeatIncoming: 4000,
             heartbeatOutgoing: 4000,
+            beforeConnect: () => {
+                // Cập nhật lại brokerURL trước mỗi lần kết nối
+                this.stompClient.brokerURL =  environment.backendApiUrl +
+                '/ws?token=' +
+                this.authService.getToken();
+            }
         });
 
         this.stompClient.onConnect = (frame) => {
