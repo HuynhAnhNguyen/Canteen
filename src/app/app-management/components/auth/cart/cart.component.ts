@@ -176,7 +176,9 @@ export class CartComponent {
   // Tăng số lượng sản phẩm
   increaseQuantity(cartItemId: number) {
     // console.log(cartItemId);
-    this.updateQuantity(cartItemId, 1); // Tăng số lượng lên 1
+    this.updateQuantity(cartItemId, 1);
+    this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Tăng số lượng thành công' });
+    // Tăng số lượng lên 1
   }
 
   // Giảm số lượng sản phẩm (không giảm dưới 1)
@@ -184,9 +186,12 @@ export class CartComponent {
     // console.log(cartItemId);
     const item = this.cartItems.find(cartItem => cartItem.id === cartItemId);
     if (item && item.quantity > 1) {
-      this.updateQuantity(cartItemId, -1); // Giảm số lượng đi 1
+      this.updateQuantity(cartItemId, -1);
+      this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Giảm số lượng thành công' });
+      // Giảm số lượng đi 1
     } else {
-      this.deleteCartItem(cartItemId); // Nếu số lượng = 1, xóa sản phẩm khỏi giỏ hàng
+      this.deleteCartItem(cartItemId);
+      // Nếu số lượng = 1, xóa sản phẩm khỏi giỏ hàng
     }
   }
 
@@ -237,6 +242,8 @@ export class CartComponent {
         (response: any) => {
           if (response.resultCode === 0) {
             this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== cartItemId);
+            this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa món ăn thành công' });
+
             this.calculateTotalAmount();
             this.loadCart();
 
