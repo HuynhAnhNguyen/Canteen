@@ -81,20 +81,26 @@ export class OrderHistoryComponent implements OnInit {
           case 'cancelOrder':
             this.messageService.add({
               severity: 'warn',
-              summary: 'Đơn hàng đã hủy'
+              summary: 'Đơn hàng đã bị hủy'
             });
             break;
+            case 'rejectOrder':
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'Đơn hàng bị hủy do bạn không đến nhận hàng'
+              });
+              break;  
 
           default:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Đã có lỗi xảy ra. Vui lòng thử lại'
-            });
+            // this.messageService.add({
+            //   severity: 'error',
+            //   summary: 'Đã có lỗi xảy ra. Vui lòng thử lại'
+            // });
             break;
         }
 
         // Reload lại trang sau khi nhận thông báo
-        setTimeout(() => location.reload(), 1000);
+        this.loadOrders()
       };
 
       // Đăng ký lắng nghe thông báo cá nhân
