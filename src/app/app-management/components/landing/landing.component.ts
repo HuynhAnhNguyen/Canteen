@@ -455,6 +455,9 @@ export class LandingComponent implements OnInit {
         // kiểm tra admin
         this.isAdmin = this.authService.getRole();
     }
+    ngOnDestroy() {
+        this.disconnect();
+       }
     showDialogInfoShop() {
         this.showInfoShop = !this.showInfoShop; // Bật dialog
     }

@@ -88,6 +88,9 @@ export class ManageOrderComponent implements OnInit {
           );
           this.loadData();
       }
+      ngOnDestroy() {
+        this.disconnect();
+       }
       applyFilterGlobal($event: any, stringVal: any) {
           this.dt1!.filterGlobal(
               ($event.target as HTMLInputElement).value,
