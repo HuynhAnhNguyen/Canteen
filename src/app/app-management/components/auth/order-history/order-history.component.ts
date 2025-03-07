@@ -127,6 +127,9 @@ export class OrderHistoryComponent implements OnInit {
     this.loadOrders();
 
   }
+  ngOnDestroy() {
+    this.disconnect();
+   }
 
   connect() {
     this.stompClient.activate(); // Thay vì connect()

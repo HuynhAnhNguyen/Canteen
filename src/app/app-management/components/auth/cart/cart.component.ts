@@ -116,6 +116,9 @@ export class CartComponent {
     this.getUserInfo();
     this.loadCart();
   }
+  ngOnDestroy() {
+   this.disconnect();
+  }
 
   connect() {
     this.stompClient.activate(); // Thay vì connect()
