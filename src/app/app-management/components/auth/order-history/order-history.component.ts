@@ -234,7 +234,7 @@ export class OrderHistoryComponent implements OnInit {
     this.http.put(environment.backendApiUrl + '/api/v1/project/order/cancel?orderId=' + orderId, {}, { headers: this.header }).subscribe(
       (response: any) => {
         if (response.resultCode === 0) {
-          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đơn hàng đã được hủy.' });
+          // this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đơn hàng đã được hủy.' });
           this.loadOrders(); // Cập nhật lại danh sách đơn hàng sau khi hủy
         } else {
           this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: response.message });
