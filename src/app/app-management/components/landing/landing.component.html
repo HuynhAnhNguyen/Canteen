@@ -164,24 +164,23 @@
         </div>
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
             <div class="grid justify-content-between">
-                <div *ngIf="infoShop" class="col-12 md:col-5" style="margin-top:-1.5rem;">
+                <div *ngIf="infoShop" class="col-12 md:col-6" style="margin-top:-1.5rem;">
                     <a href="#"
                         class="flex flex-wrap align-items-center justify-content-center md:justify-content-start md:mb-0 mb-3 cursor-pointer">
                         <img src="assets/layout/images/logo.svg" alt="footer sections" width="50" height="50"
                             class="mr-2">
                         <h4 class="font-medium text-3xl text-900">{{ infoShop.name }}</h4>
                     </a>
-                    <p>Thời gian mở cửa: {{ infoShop.openTime }}</p>
-                    <p>Địa chỉ: {{ infoShop.adress }}</p>
+                    <p  class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Thời gian mở cửa: {{ infoShop.openTime }}</p>
+                    <p  class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Địa chỉ: {{ infoShop.adress }}</p>
                 </div>
 
-                <div class="col-12 md:col-10 lg:col-7">
+                <div class="col-12 md:col-10 lg:col-6">
                     <div class="grid text-center md:text-left">
                         <div class="col-12 md:col-6">
                             <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Canteen</h4>
-                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Về chúng tôi</a>
-                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Tin tức</a>
-                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Tuyển dụng</a>
+                            <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Email: {{infoShop.email}}</p>
+                            <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">SĐT: {{infoShop.phone}}</p>
                         </div>
 
                         <!-- <div class="col-12 md:col-4 mt-4 md:mt-0">
@@ -191,11 +190,11 @@
                             <a class="line-height-3 text-xl block cursor-pointer text-700">Nghiên cứu điển hình</a>
                         </div> -->
 
-                        <div class="col-12 md:col-6 mt-6 md:mt-0">
+                        <!-- <div class="col-12 md:col-6 mt-6 md:mt-0">
                             <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Trợ giúp</h4>
                             <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Sự kiện</a>
                             <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Câu hỏi thường gặp</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

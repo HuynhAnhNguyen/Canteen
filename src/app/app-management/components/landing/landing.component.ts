@@ -403,7 +403,12 @@ export class LandingComponent implements OnInit {
                             summary: 'Đơn hàng đã hủy',
                         });
                         break;
-
+                        case 'rejectOrder':
+                            this.messageService.add({
+                              severity: 'warn',
+                              summary: 'Đơn hàng bị hủy do bạn không đến nhận hàng'
+                            });
+                            break;  
                     default:
                         // this.messageService.add({
                         //   severity: 'error',
