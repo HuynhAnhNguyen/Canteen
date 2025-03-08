@@ -80,6 +80,31 @@ import { infoShopModel } from '../../Model/infoShopModel';
                 }
             }
 
+            .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .card {
+                border-radius: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .card-title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .card-text {
+                font-size: 16px;
+            }
+
+            .pagination-controls {
+            margin-top: 20px;
+            }
+
             /* Nền mờ của modal */
             .modal {
                 position: fixed;
@@ -368,9 +393,9 @@ export class LandingComponent implements OnInit {
             heartbeatOutgoing: 4000,
             beforeConnect: () => {
                 // Cập nhật lại brokerURL trước mỗi lần kết nối
-                this.stompClient.brokerURL =  environment.backendApiUrl +
-                '/ws?token=' +
-                this.authService.getToken();
+                this.stompClient.brokerURL = environment.backendApiUrl +
+                    '/ws?token=' +
+                    this.authService.getToken();
             }
         });
 
@@ -409,12 +434,12 @@ export class LandingComponent implements OnInit {
                             summary: 'Đơn hàng đã hủy',
                         });
                         break;
-                        case 'rejectOrder':
-                            this.messageService.add({
-                              severity: 'warn',
-                              summary: 'Đơn hàng bị hủy do bạn không đến nhận hàng'
-                            });
-                            break;  
+                    case 'rejectOrder':
+                        this.messageService.add({
+                            severity: 'warn',
+                            summary: 'Đơn hàng bị hủy do bạn không đến nhận hàng'
+                        });
+                        break;
                     default:
                         // this.messageService.add({
                         //   severity: 'error',
@@ -457,7 +482,7 @@ export class LandingComponent implements OnInit {
     }
     ngOnDestroy() {
         this.disconnect();
-       }
+    }
     showDialogInfoShop() {
         this.showInfoShop = !this.showInfoShop; // Bật dialog
     }
@@ -475,7 +500,7 @@ export class LandingComponent implements OnInit {
         await this.http
             .post(
                 environment.backendApiUrl +
-                    '/api/v1/project/canteenInfo/update',
+                '/api/v1/project/canteenInfo/update',
                 shopData,
                 { headers: this.header }
             )
@@ -613,7 +638,7 @@ export class LandingComponent implements OnInit {
         this.http
             .get<any>(
                 environment.backendApiUrl +
-                    '/api/v1/project/auth/canteenInfo/get'
+                '/api/v1/project/auth/canteenInfo/get'
             )
             .subscribe(
                 (data) => {

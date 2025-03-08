@@ -23,10 +23,6 @@
                         </a>
                     </li>
                     <li>
-                        <!-- <a routerLink="/auth/cart" fragment="features" pRipple
-                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
-                            <span>Giỏ hàng</span>
-                        </a> -->
                         <a *ngIf="isLoggedIn" [routerLink]="['/auth/gio-hang']" fragment="features" pRipple
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
                             <span>Giỏ hàng</span>
@@ -39,13 +35,7 @@
                         </a>
 
                     </li>
-
-                    <!-- <li>
-                        <a routerLink="/gioi-thieu" pRipple
-                            class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
-                            <span>Giới thiệu</span>
-                        </a>
-                    </li> -->
+                    
                     <li>
                         <a *ngIf="isAdmin == 'ROLE_ADMIN'" (click)="showDialogInfoShop()" fragment="features" pRipple
                             class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
@@ -73,7 +63,6 @@
                         <button pButton pRipple label="Xin chào {{ fullname }}"
                             class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500">
                         </button>
-                        <!-- <span class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500">Xin chào, {{ username }}</span> -->
                         <button pButton pRipple label="Đăng xuất"
                             class="p-button-text p-button-rounded border-none font-light line-height-2 text-red-500 ml-3"
                             (click)="logout()">
@@ -84,11 +73,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="banner-container">
-            <img src="assets/demo/images/banner/banner.jpg" alt="Banner">
-            
-        </div> -->
+        
         <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
             <section class="cta-banner cd-padding-sm">
                 <div class="cta-banner__grid">
@@ -99,8 +84,6 @@
 
                         <div class="cta-banner__btns first">
                             <a [routerLink]="[]" fragment="datmonan" class="button2">Đặt món ngay</a>
-                            <!-- <a href="#0" class="cd-btn cd-btn--primary">Đặt món ngay</a> -->
-                            <!-- <a href="#0" class="cd-link cd-link--contrast-higher">Learn more</a> -->
                         </div>
                     </div>
 
@@ -113,55 +96,46 @@
         </div>
 
 
-        <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
-            <div class="grid justify-content-center" id="datmonan">
-
-                <div class="col-12 text-center mt-8 mb-4">
-                    <h2 class="text-900 font-normal mb-2"><b>Danh sách các món ăn</b></h2>
+        <div class="container mt-5">
+            <div class="row justify-content-center" id="datmonan">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="text-900 font-normal"><b>Danh sách các món ăn</b></h2>
                 </div>
+                <div class="col-md-4 mb-4 d-flex align-items-stretch"
+                    *ngFor="let food of foods | paginate: { itemsPerPage: pageSize, currentPage: page }">
+                    <div class="card w-100">
+                        <img [src]="backendApiUrl + '/api/v1/project/auth/' + food.imageUrl"
+                            class="card-img-top img-fluid" alt="Food Image" style="height: 200px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ food.name }}</h5>
+                            <p class="card-text text-danger fw-bold">{{ food.price | number:'1.0-2' }} VND</p>
 
-                <div class="row">
-                    <div class="col-md-4 mb-4"
-                        *ngFor="let food of foods | paginate: { itemsPerPage: pageSize, currentPage: page }">
-                        <div class="card">
-                            <img [src]="backendApiUrl +'/api/v1/project/auth/' + food.imageUrl"
-                                style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">{{ food.name }}</h5>
-                                <p class="card-text text-danger fw-bold">{{ food.price | number:'1.0-2' }} VND</p>
-                                <!-- Nút Xem chi tiết -->
-                                <button style="margin-right: 10px;" class="btn btn-info" (click)="viewDetails(food)">
-                                    Xem chi tiết
-                                </button>
+                            <div class="d-grid gap-2 d-md-flex justify-content-center">
+                                <button class="btn btn-info" (click)="viewDetails(food)">Xem chi tiết</button>
+                                <button class="btn btn-primary" (click)="addToCart(food)">Thêm vào giỏ hàng</button>
+                            </div>
+                        </div>
+                        <div *ngIf="showDetailModal" class="modal show">
+                            <div class="modal-content">
+                                <img [src]="backendApiUrl +'/api/v1/project/auth/' + selectedFood?.imageUrl"
+                                    style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
+                                <h2>{{ selectedFood?.name }}</h2>
+                                <p><strong>Giá:</strong> {{ selectedFood?.price | number:'1.0-2' }} VND</p>
+                                <p><strong>Mô tả:</strong> {{ selectedFood?.description }}</p>
 
-                                <!-- Nút Thêm vào giỏ hàng -->
-                                <button class="btn btn-primary" (click)="addToCart(food)">
-                                    Thêm vào giỏ hàng
-                                </button>
-
-                                <!-- Modal hiển thị chi tiết sản phẩm -->
-                                <div *ngIf="showDetailModal" class="modal show">
-                                    <div class="modal-content">
-                                        <img [src]="backendApiUrl +'/api/v1/project/auth/' + selectedFood?.imageUrl"
-                                            style="width: 100%; height: 200px;" class="card-img-top" alt="Food Image">
-                                        <h2>{{ selectedFood?.name }}</h2>
-                                        <p><strong>Giá:</strong> {{ selectedFood?.price | number:'1.0-2' }} VND</p>
-                                        <p><strong>Mô tả:</strong> {{ selectedFood?.description }}</p>
-
-                                        <button class="btn btn-danger" (click)="closeDetail()">Đóng</button>
-                                    </div>
-                                </div>
-
+                                <button class="btn btn-danger" (click)="closeDetail()">Đóng</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Phân trang -->
-                <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
-
-
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center mt-4">
+                        <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
             <div class="grid justify-content-between">
                 <div *ngIf="infoShop" class="col-12 md:col-6" style="margin-top:-1.5rem;">
@@ -171,30 +145,21 @@
                             class="mr-2">
                         <h4 class="font-medium text-3xl text-900">{{ infoShop.name }}</h4>
                     </a>
-                    <p  class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Thời gian mở cửa: {{ infoShop.openTime }}</p>
-                    <p  class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Địa chỉ: {{ infoShop.adress }}</p>
+                    <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Thời gian mở cửa: {{
+                        infoShop.openTime }}</p>
+                    <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Địa chỉ: {{ infoShop.adress }}
+                    </p>
                 </div>
 
                 <div class="col-12 md:col-10 lg:col-6">
                     <div class="grid text-center md:text-left">
                         <div class="col-12 md:col-6">
                             <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Canteen</h4>
-                            <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Email: {{infoShop.email}}</p>
-                            <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">SĐT: {{infoShop.phone}}</p>
+                            <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Email:
+                                {{infoShop.email}}</p>
+                            <p class="line-height-3 text-xl block cursor-pointer mb-2 text-700">SĐT: {{infoShop.phone}}
+                            </p>
                         </div>
-
-                        <!-- <div class="col-12 md:col-4 mt-4 md:mt-0">
-                            <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Tài nguyên</h4>
-                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Bắt đầu</a>
-                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Học tập</a>
-                            <a class="line-height-3 text-xl block cursor-pointer text-700">Nghiên cứu điển hình</a>
-                        </div> -->
-
-                        <!-- <div class="col-12 md:col-6 mt-6 md:mt-0">
-                            <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Trợ giúp</h4>
-                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Sự kiện</a>
-                            <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Câu hỏi thường gặp</a>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -208,10 +173,6 @@
         [modal]="true">
         <ng-template pTemplate="content">
             <div class="grid">
-                <!-- <div class="text-center col-12" style="font-weight: bold; font-size: large">
-                    Thông tin tài khoản
-                </div> -->
-
                 <div class="field col-12 lg:col-6">
                     <label for="time" style="font-weight: bold">Tên cửa hàng</label>
                     <input id="time" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText

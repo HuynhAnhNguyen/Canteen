@@ -71,23 +71,4 @@ export class ActiveAccountComponent implements OnInit {
     this.loading = false;
     
   }
-
-  async sendOTP() {
-    this.loading = true;
-  
-    await this.httpClient.post<any>(environment.backendApiUrl + "/api/v1/project/auth/send-otp", null)
-      .toPromise()
-      .then(data => {
-        if (data.resultCode == "0") {
-          this.messageService.add({ severity: "success", summary: "Mã OTP đã được gửi, vui lòng kiểm tra email/SMS." });
-        } else {
-          this.messageService.add({ severity: "error", summary: data.message });
-        }
-      })
-      .catch(error => {
-        this.messageService.add({ severity: "error", summary: "Đã xảy ra lỗi khi gửi OTP." });
-      });
-  
-    this.loading = false;
-  }
 }
