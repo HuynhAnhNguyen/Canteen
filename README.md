@@ -15,6 +15,7 @@
     - Nếu sử dụng server hiện tại đang chạy trên aws thì không cần chỉnh sửa gì, nếu muốn sử dụng server chạy trên máy cá nhân
       chỉnh sửa file cấu hình: src/environments/environments.ts, sửa biến  backendApiUrl: 'http://13.239.169.8:8080' thành  backendApiUrl: 'http://localhost:8080'
 
+![image](https://github.com/user-attachments/assets/478b86bf-296a-4c54-8ba8-5a40e51d516d)
 
 
 Home
