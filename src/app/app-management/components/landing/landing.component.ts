@@ -398,6 +398,7 @@ export class LandingComponent implements OnInit {
     canteenInfo: any;
     stompClient: Client;
     backendApiUrl: string = '';
+    text: String = '';
 
     constructor(
         private foodService: FoodService,
@@ -588,7 +589,7 @@ export class LandingComponent implements OnInit {
     }
 
     loadFoods() {
-        this.foodService.getAllFoods().subscribe(
+        this.foodService.getAllFoods(this.text).subscribe(
             (data) => {
                 this.foods = data.data; // Lưu dữ liệu API vào biến
                 // console.log('Danh sách món ăn:', this.foods);
